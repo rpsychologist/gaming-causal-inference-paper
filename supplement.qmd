@@ -16,7 +16,8 @@ code-tools:
     source: https://github.com/rpsychologist/gaming-causal-consistency-paper/index.qmd
 html-math-method: katex
 format:
-    html: default
+    html: 
+        output-file: index.html
     pdf: 
         output-file: magnusson-2023-gaming-harmful-compared-to-what-supplement.pdf
 ---

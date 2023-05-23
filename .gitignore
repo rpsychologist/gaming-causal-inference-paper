@@ -1,18 +1,17 @@
-*_files/
-*_cache/
-*.html
+/*_files/
+/*_cache/
 .quarto
 /.quarto/
 dev/
 
 ## TeX
-*.aux
-*.synctex.gz
-*.fls
-*.fdb_latexmk
-*.log
-*.pdf
-*.xdv
+figures/*.aux
+figures/*.synctex.gz
+figures/*.fls
+figures/*.fdb_latexmk
+figures/*.log
+figures/*.pdf
+figures/*.xdv
 
 ## Figures
 figures/*.ai
