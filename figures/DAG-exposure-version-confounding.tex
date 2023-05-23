@@ -1,0 +1,55 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{helvet}
+\usepackage{adjustbox}
+\renewcommand{\familydefault}{\sfdefault}
+\usetikzlibrary{
+  positioning, calc, shapes.geometric, shapes.multipart, 
+	shapes, arrows.meta, arrows, 
+	decorations.markings, external, trees}
+
+% Arrow style:
+\tikzset{
+    Arrow/.style = {
+        thick, 
+        decoration={
+            markings,
+            mark=at position 1 with {
+                \arrow[thick, #1]{latex}
+                }
+            }, 
+        shorten >= 3pt, 
+        preaction = {decorate}
+    },
+    Arrow/.default={black}
+}
+% Text node
+\tikzset{
+Node/.style={
+  text width=1cm,
+  align=center,
+  }
+}
+\definecolor{aFill}{HTML}{2980b9}
+\definecolor{kFill}{HTML}{32698D}
+\definecolor{yFill}{HTML}{ee5253}
+\definecolor{uFill}{HTML}{bdc3c7}
+\begin{document}
+\begin{adjustbox}{width=20cm, height=12cm, keepaspectratio}
+  \begin{tikzpicture}
+    \node [fill=uFill, align=center, opacity=0.5](U) {Confounder (U)};
+    \node [fill=uFill, above=of U] (A) {Exposure (A)};
+    \node [fill=uFill, above=of A, align=center](W) {Exposure-version\\confounder (W)};
+    \node [fill=uFill, right=of A] (K) {Version (K)};
+    \node [fill=uFill, right=of K] (Y) {Outcome (Y)};
+    \draw [Arrow=yFill, color=yFill] (W) to (A);
+    \draw [Arrow=yFill, color=yFill] (W) to (K);
+    \draw [Arrow=gray, color=gray, dotted] (U) to (A);
+    \draw [Arrow=gray, color=gray, dotted] (U) to (Y);
+    \draw [Arrow] (A) to (K);
+    \draw [Arrow] (K) to (Y);
+  \end{tikzpicture}
+\end{adjustbox}
+\end{document}

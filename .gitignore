@@ -1,0 +1,20 @@
+*_files/
+*_cache/
+*.html
+.quarto
+/.quarto/
+dev/
+
+## TeX
+*.aux
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.log
+*.pdf
+*.xdv
+
+## Figures
+figures/*.ai
+figures/*.svg
+figures/*.png
