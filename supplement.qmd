@@ -24,8 +24,13 @@ format:
 
 ```{r, echo = knitr::is_html_output()}
 #| warning: false
-library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(purrr)
 library(broom)
+library(svglite)
+library(tidyr)
+library(patchwork)
 extrafont::loadfonts(quiet = TRUE)
 library(see)
 knitr::opts_chunk$set(
@@ -39,13 +44,15 @@ col2 <- "#be4048"
 ```
 
 ## Introduction
-This is the online supplement for *Harmful Compared to What? The Problem of Gaming and Ill-defined Causal Effects* (Magnusson, Johansson, & Przybylski, 2023, preprint), containing the code for all calculations and figures presented in the article.
+This is the online supplement for *Harmful Compared to What? The Problem of Gaming and Ill-defined Causal Effects* (Magnusson, Johansson, & Przybylski, 2023, in preparation), containing the code for all calculations and figures presented in the article.
 
 - [Preprint](/)
 - [GitHub respository](https://github.com/rpsychologist/gaming-causal-consistency-paper/)
 - [OSF repository](https://osf.io/qfw23/)
-- [Online version of the supplement](/)
 
+::: {.content-visible when-format="pdf"}
+A HTML version of this document can also be viewed at [https://rpsychologist.github.io/gaming-causal-consistency-paper](https://rpsychologist.github.io/gaming-causal-consistency-paper)
+:::
 
 ## Exchangeability example
 
