@@ -1,0 +1,17 @@
+{
+    "files.watcherExclude": {
+        "renv/**": true,
+        "docs/**": true,
+        ".quarto/**": true,
+        "*_cache/**": true,
+        "*_files/**": true
+    },
+    "search.useGlobalIgnoreFiles": true,
+    "search.exclude": {
+        "renv/**": true,
+        "docs/**": true,
+        ".quarto/**": true,
+        "*_cache/**": true,
+        "*_files/**": true
+    }
+}
