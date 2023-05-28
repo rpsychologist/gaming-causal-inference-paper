@@ -46,7 +46,7 @@ col2 <- "#be4048"
 ## Introduction
 This is the online supplement for *Harmful Compared to What? The Problem of Gaming and Ill-defined Causal Effects* (Magnusson, Johansson, & Przybylski, 2023, in preparation), containing the code for all calculations and figures presented in the article.
 
-- [Preprint](/)
+- [Preprint](https://psyarxiv.com/qruhx)
 - [GitHub repository](https://github.com/rpsychologist/gaming-causal-inference-paper/)
 - [OSF repository](https://osf.io/qfw23/)
 

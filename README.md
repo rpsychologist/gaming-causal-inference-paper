@@ -3,7 +3,7 @@
 This repository contains the code required to reproduce all figures and simulations reported in our manuscript, *Harmful Compared to What? The Problem of Gaming and Ill-defined Causal Effects* (Magnusson, Johansson, & Przybylski, in preparation). 
 
 ## Materials
-- Preprint
+- [Preprint](https://psyarxiv.com/qruhx)
     - A publicly available version of our manuscript in advance of peer-review and formal publication
 - [OSF repository](https://osf.io/qfw23/)
 - Online analysis supplement ([PDF](https://github.com/rpsychologist/gaming-causal-inference-paper/blob/main/docs/magnusson-2023-gaming-harmful-compared-to-what-supplement.pdf), [HTML](https://rpsychologist.github.io/gaming-causal-inference-paper))
