@@ -13,7 +13,7 @@ toc: true
 toc-depth: 2
 code-fold: true
 code-tools: 
-    source: https://github.com/rpsychologist/gaming-causal-consistency-paper/index.qmd
+    source: https://github.com/rpsychologist/gaming-causal-inference-paper/index.qmd
 html-math-method: katex
 format:
     html: 
@@ -47,11 +47,11 @@ col2 <- "#be4048"
 This is the online supplement for *Harmful Compared to What? The Problem of Gaming and Ill-defined Causal Effects* (Magnusson, Johansson, & Przybylski, 2023, in preparation), containing the code for all calculations and figures presented in the article.
 
 - [Preprint](/)
-- [GitHub respository](https://github.com/rpsychologist/gaming-causal-consistency-paper/)
+- [GitHub repository](https://github.com/rpsychologist/gaming-causal-inference-paper/)
 - [OSF repository](https://osf.io/qfw23/)
 
 ::: {.content-visible when-format="pdf"}
-A HTML version of this document can also be viewed at [https://rpsychologist.github.io/gaming-causal-consistency-paper](https://rpsychologist.github.io/gaming-causal-consistency-paper)
+A HTML version of this document can also be viewed at [https://rpsychologist.github.io/gaming-causal-inference-paper](https://rpsychologist.github.io/gaming-causal-inference-paper)
 :::
 
 ## Exchangeability example
@@ -61,19 +61,19 @@ This function was created to simulate a binary confounder.
 ```{r}
 #| code-fold: false
 
-#' Simulate binary confounder
+#' Simulate data with a binary exposure & confounder
 #'
 #' Will generate a dataset with a binary exposure and confounder with an
 #' observed difference of a specific magnitude, while the true average
-#' causal effect is zero.
+#' causal effect is zero. The outcome is continuous.
 #'
-#' @param n number of participants per group
-#' @param m_young Mean outcome among the young people
-#' @param p_a1_young proportion of young people among the exposed (A = 1)
-#' @param d the (biased) standardized mean difference between exposed 
-#' and un-exposed
+#' @param n the number of participants per group
+#' @param m_young the mean outcome among the young people
+#' @param p_a1_young the proportion of young people among the exposed (A = 1)
+#' @param d the (biased) standardized mean difference between the exposed 
+#' and non-exposed
 simulate_confounding <- function(n, m_young, p_a1_young, d) {
-    # this is to make sure overall group diff is equal to d
+    # this is to make sure the overall group diff is equal to d
     m_old <- d / (2 * p_a1_young - 1)
     M <- c(m_young, m_old)
     p <- c(1 - p_a1_young, p_a1_young)
@@ -117,7 +117,7 @@ simulate_confounding <- function(n, m_young, p_a1_young, d) {
 
 ```
 
-When then simulate a large data set with with a high proportion (85%)
+When then simulate a large data set with a high proportion (85%)
 young people among the exposed.
 
 ```{r}
@@ -137,7 +137,7 @@ We can see a summary of the simulated data in @tbl-confounder.
 #| tbl-subcap: Young/old is the binary confounder, A is the exposure
 d %>%
     group_by(A) %>%
-    summarise(
+    summarize(
         "Prop. young" = mean(U == "Young"),
         "Prop. old" = mean(U == "Old"),
         "Mean" = mean(y),
@@ -153,7 +153,7 @@ The proportion of gamers is,
 mean(d$A == "Gamers")
 ```
 
-and the biased difference between the exposed and non-exposed are
+and the biased difference between the exposed and non-exposed is:
 
 ```{r}
 #| code-fold: false
@@ -161,7 +161,7 @@ mean(d[d$A == "Gamers", "y"]) - mean(d[d$A == "Control", "y"])
 ```
 
 @fig-confounder shows that the causal effect within strata is zero, and
-that the observed difference is outcomes is caused by the confounder.
+that the observed difference in outcomes is caused by the confounder.
 
 ```{r, fig-confounder}
 #| fig-cap: Illustration of a third variable violating the exchangeability assumption
@@ -236,22 +236,27 @@ p <- ggplot(
         text = element_text(family = "ArialMT")
     )
 p
-ggsave("figures/figure-confounding.svg", p, width = 5, height = 4)
+ggsave(
+    "figures/figure-confounding.svg", 
+    p, 
+    width = 5, 
+    height = 4
+)
 ```
 
-Unsuprisingly, we get the same biased effect if we run a regression without including
-the confounder `U`.
+Unsurprisingly, we get the same biased effect if we run a regression without including
+the confounder `U`, as shown in @tbl-lm-confounding.
 
-```{r, lm-confounding}
+```{r, tbl-lm-confounding}
 #| code-fold: false
 #| tbl-cap: Linear regression *without* adjusting for the confounder
 broom::tidy(lm(y ~ A, data = d)) %>% 
     kable(digits = 2)
 ```
 
-Adjusting for `U` removes the confounding
+Adjusting for `U` removes the confounding, as shown in @tbl-lm-confounding-adjusted.
 
-```{r, lm-confounding-adjusted}
+```{r, tbl-lm-confounding-adjusted}
 #| code-fold: false
 #| tbl-cap: Linear regression adjusting for the confounder
 
@@ -262,27 +267,29 @@ broom::tidy(lm(y ~ A + U, data = d)) %>%
 ## Exposure-version confounding example
 
 Now we will focus on exposure-version confounding. First, we write a
-function to generate simulated data with 4 version, 2 version among the
-unexposed and 2 versions for the exposed, both exposure and the version
-is infleunced by binary confounder (W).
+function to generate simulated data with 4 versions, 2 versions for the
+non-exposed and 2 versions for the exposed, both exposure and version
+is influenced by the binary confounder (W).
 
 ```{r, simulate-exposure-version}
 #| code-fold: false
 
-#' Simulate exposure-version confounder
+#' Simulate data with exposure-version confounding
 #'
 #' Will generate a dataset with a binary exposure-version confounder with an
 #' observed difference of a specific magnitude, while the true average
-#' causal effect is zero.
+#' causal effect is zero. Both the confounder and exposure is binary,
+#' whereas the outcome is a continuous variable.
 #'
-#' @param n number of participants per group
-#' @param pr_W the probability of a participant being a man
-#' @param pr_A_W the probability of being exposed among the men
-#' @param pr_K_W_a0 the probability of K = 2 among the un-exposed men
-#' @param pr_K_W_a1 the probability of K = 2 among the exposed men
-#' @param sd_a0 total SD for the unexposed 
-#' @param sd_a1 total SD for the exposed
-#' @param d the (biased) standardized mean difference between exposed and un-exposed
+#' @param n the number of participants per group
+#' @param pr_W the probability of a participant being young
+#' @param pr_A_W the probability of being exposed among the young
+#' @param pr_K_W_a0 the probability of K = 2 among the non-exposed young
+#' @param pr_K_W_a1 the probability of K = 2 among the exposed young
+#' @param sd_a0 the total SD for the non-exposed 
+#' @param sd_a1 the total SD for the exposed
+#' @param d the (biased) standardized mean difference between exposed 
+#' and non-exposed
 simulate_data <- function(
     n,
     pr_W,
@@ -316,8 +323,10 @@ simulate_data <- function(
 
     # Code below appears more complicated than it is,
     # it's just a bunch of conditional probabilities to get the correct 
-    # proportion and variances. We do this so the total variance will be sd_a0² and sd_a1²,
-    # and the observed difference will be equal to `d`.
+    # proportions and variances. We do this so the total variance 
+    # will be sd_a0² and sd_a1², and the observed standardized 
+    # difference will be equal to `d`.
+
     # Pr(A)
     pr_A <- pr_A_W * pr_W + (1 - pr_A_W) * (1 - pr_W)
     # Solve for params in control group
@@ -394,8 +403,8 @@ simulate_data <- function(
 ```
 
 Let's simulate a large data set, where 50% are exposed, among the
-exposed 80% are men, and among the exposed men 90% get K = 2, and among
-the unexposed men 90% also get K = 2.
+exposed 80% are young, and among the exposed young 90% get K = 2, and among
+the non-exposed young 90% also get K = 2.
 
 ```{r}
 #| cold-fold: false
@@ -421,11 +430,11 @@ d <- res$data
 Check if the simulated data match our inputs.
 
 ```{r, tbl-control-summary}
-#| tbl-cap: Summary of the unexposed group
+#| tbl-cap: Summary of the non-exposed group
 # control
 d %>%
     filter(A == 0) %>%
-    summarise(
+    summarize(
         mean(K == 1),
         mean(K == 2),
         mean(y),
@@ -456,7 +465,7 @@ d %>%
 #| tbl-cap: Summary of the exposed group
 d %>%
     filter(A == 1) %>%
-    summarise(
+    summarize(
         mean(K == 1),
         mean(K == 2),
         mean(y),
@@ -483,13 +492,13 @@ d %>%
     kable(digits = 2)
 ```
 
-We also check so that proportions match stratified by age and version.
+We also check so that the proportions match, stratified by age and version.
 
 ```{r, tbl-summary-age-version}
 #| tbl-cap: Summary stratified by age and version
 d %>%
     group_by(A) %>%
-    summarise(
+    summarize(
         "Young K1" = sum(K == 1 & W == 1) / sum(W == 1),
         "Young K2" = sum(K == 2 & W == 1) / sum(W == 1),
         "Old K1" = sum(K == 1 & W == 0) / sum(W == 0),
@@ -499,11 +508,11 @@ d %>%
     kable(digits = 2)
 ```
 
-We also see that the overall values are correct, inluding the biased
+We also see that the overall values are correct, including the biased
 effect.
 
-```{r, tbl-summary-overal}
-#| tbl-cap: Summary overal
+```{r, tbl-summary-overall}
+#| tbl-cap: Summary overall
 pr_A <- mean(d$A)
 pooled_SD <- sqrt(
     sd(d[d$A == 0, "y"])^2 * (1 - pr_A) + 
@@ -545,8 +554,17 @@ We get a biased estimate if we naively look at the group differences
 #| fig-cap: Overall distribution of outcomes ignoring exposure-versions
 #| echo: false
 p <- ggplot(
-    mutate(d, A = factor(A, labels = c("Control", "Gamers"))),
-    aes(A, y, fill = "Overall", color = "Overall", group = A)
+    mutate(
+        d, 
+        A = factor(A, labels = c("Control", "Gamers"))
+    ),
+    aes(
+        A, 
+        y, 
+        fill = "Overall", 
+        color = "Overall", 
+        group = A
+    )
 ) +
     geom_violinhalf(
         # color = NA,
@@ -571,8 +589,12 @@ p <- ggplot(
     ) +
     lims(y = c(-2.5, 2.5)) +
     labs(y = "Mental health", x = "Observed outcomes") +
-    scale_color_manual(values = c("Control" = col1, "Gamers" = col2, "Overall" = "black")) +
-    scale_fill_manual(values = c("Control" = col1, "Gamers" = col2, "Overall" = "black")) +
+    scale_color_manual(
+        values = c("Control" = col1, "Gamers" = col2, "Overall" = "black")
+    ) +
+    scale_fill_manual(
+        values = c("Control" = col1, "Gamers" = col2, "Overall" = "black")
+    ) +
     guides(
         colour = guide_legend("Variant"),
         fill = guide_legend("Variant")
@@ -581,7 +603,12 @@ p <- ggplot(
     theme(
         panel.grid.minor.x = element_blank(),
     )
-ggsave("figures/figure-version-confounding-0.svg", p, width = 5, height = 4)
+ggsave(
+    "figures/figure-version-confounding-0.svg", 
+    p, 
+    width = 5, 
+    height = 4
+)
 p
 ```
 
@@ -620,10 +647,10 @@ In @fig-exposure-version-versions we plot the exposure-version, and we and see t
 a weighted average of the different exposure versions in each
 population. The overall comparison is biased when there is
 exposure-version confounding, however, we could compare specific
-versions.
+versions, e.g.,
 
 $$
-\mathbb{E}(Y \mid \text{Control}, K = 2) - \mathbb{E}(Y \mid \text{Gamers}, K = 1)
+\mathbb{E}(Y \mid \text{Control}, K = 2) - \mathbb{E}(Y \mid \text{Gamers}, K = 1).
 $$
 
 ```{r, fig-exposure-version-versions}
@@ -698,8 +725,12 @@ p <- ggplot(
         y = "Mental health",
         x = "Observed outcomes"
     ) +
-    scale_color_manual(values = c("1" = col1, "2" = col2, "Overall" = "black")) +
-    scale_fill_manual(values = c("1" = col1, "2" = col2, "Overall" = "black")) +
+    scale_color_manual(
+        values = c("1" = col1, "2" = col2, "Overall" = "black")
+    ) +
+    scale_fill_manual(
+        values = c("1" = col1, "2" = col2, "Overall" = "black")
+    ) +
     guides(
         colour = guide_legend("Variant"),
         fill = guide_legend("Variant")
@@ -712,17 +743,28 @@ ggsave("figures/figure-version-confounding-1.svg", p, width = 5, height = 4)
 p
 ```
 
-If look at the data within each strata of the counfounder, in @fig-exposure-version-stratified we see that
-overall impact among the older group is positive, whereas it is negative
-among men. This is interely driven by yound and old people being exposed
+In @fig-exposure-version-stratified we look at the data within each strata of the confounder, and see that
+the overall impact among the older group is positive, whereas it is negative
+among the younger group. This is entirely driven by young and old people being exposed
 to different versions of the exposure.
 
 ```{r, fig-exposure-version-stratified}
 #| fig.cap: The distribution of exposure-versions within each level of the confounder. Circles represent averages, black circles are averaged over both versions.
 #| echo: false
 p2 <- p + facet_wrap(~ factor(W, labels = c("Old", "Young")))
-ggsave("figures/figure-version-confounding-2.svg", p2, width = 5, height = 4)
-ggsave("figures/figure-version-confounding-2.png", p2, width = 5, height = 4, bg = "white")
+ggsave(
+    "figures/figure-version-confounding-2.svg", 
+    p2, 
+    width = 5, 
+    height = 4
+)
+ggsave(
+    "figures/figure-version-confounding-2.png", 
+    p2, 
+    width = 5, 
+    height = 4, 
+    bg = "white"
+)
 p2
 ```
 
@@ -738,11 +780,21 @@ The average causal effect of gaming is,
 \end{align*}
 
 that is, we are comparing the outcomes if everyone in the population was
-gamers vs if noone was playing games. 
+gamers vs if no one was playing games. 
 
 We can get the correct estimate by adjusting for age, for instance, by
 including age as a covariate or using inverse probability weighting
-(IPW).
+(IPW), as shown in @tbl-ATE-lm and @tbl-ATE-ipw.
+
+```{r}
+#| code-fold: false
+#| label: tbl-ATE-lm
+#| tbl-cap: Outcome regression adjusting for age.
+broom::tidy(
+        lm(y ~ A + W, data = d)
+    ) %>% 
+    kable(digits = 2)
+```
 
 ```{r}
 #| code-fold: false
@@ -767,17 +819,7 @@ broom::tidy(
     kable(digits = 2)
 ```
 
-```{r}
-#| code-fold: false
-#| label: tbl-ATE-lm
-#| tbl-cap: Outcome regression adjusting for age.
-broom::tidy(
-        lm(y ~ A + W, data = d)
-    ) %>% 
-    kable(digits = 2)
-```
-
-In @fig-exposure-version-ATE we plot the counterfactuals, and we see that the ATE is 0. However, we'd get a much more nuanced answer if we had data on the exposure version.
+In @fig-exposure-version-ATE we plot the counterfactuals, and we see that the ATE is 0. However, we'd get a much more nuanced answer if we had data on the exposure versions.
 
 ```{r, fig-exposure-version-ATE}
 #| echo: false
@@ -863,8 +905,12 @@ p <- ggplot(
     ) +
     lims(y = c(-2.5, 2.5)) +
     labs(y = "Mental health", x = "Counterfactual values") +
-    scale_color_manual(values = c("1" = col1, "2" = col2, "Overall" = "black")) +
-    scale_fill_manual(values = c("1" = col1, "2" = col2, "Overall" = "black")) +
+    scale_color_manual(
+        values = c("1" = col1, "2" = col2, "Overall" = "black")
+    ) +
+    scale_fill_manual(
+        values = c("1" = col1, "2" = col2, "Overall" = "black")
+    ) +
     guides(
         colour = guide_legend("Version"),
         fill = guide_legend("Version")
@@ -874,15 +920,20 @@ p <- ggplot(
         panel.grid.minor.x = element_blank(),
         text = element_text(family = "ArialMT")
     )
-ggsave("figures/figure-version-confounding-3.svg", p, width = 5, height = 4)
+ggsave(
+    "figures/figure-version-confounding-3.svg", 
+    p, 
+    width = 5, 
+    height = 4
+)
 p
 ```
 
 ### Average treatment effect on the treated (ATT).
 
-It's possible that most people do not have the ATE in mind wh en
+It's possible that most people do not have the ATE in mind when
 thinking about the causal effect of video games. It might be more
-intuitive to think what would happend to the population of gamers if
+intuitive to imagine what would happened to the population of gamers if
 they did not play games. This estimand is called *the average treatment
 effect on the treated* (ATT). If the control group was well-defined (i.e.
 lacked multiple versions), then we could get the ATT simply by comparing
@@ -890,14 +941,16 @@ the average mental health among gamers with the average mental health
 among the control group.
 
 \begin{align*}
-\text{ATT} &= \mathbb{E}(Y^{\text{Gaming}} - Y^{\text{Control}} \mid A = 1) \\
-&= \mathbb{E}(Y^{\text{Gaming}} \mid A = 1) - \mathbb{E}(Y^{\text{Control}} \mid A = 1), 
+\text{ATT} &= \mathbb{E}(Y^{\text{Gaming}} - 
+Y^{\text{Control}} \mid A = \text{Gaming}) \\
+&= \mathbb{E}(Y^{\text{Gaming}} \mid A = \text{Gaming}) - 
+\mathbb{E}(Y^{\text{Control}} \mid A = \text{Gaming}), 
 \end{align*}
 
 $\mathbb{E}(Y^{\text{Control}} \mid A = 1)$ is not something we could
 observe.
 
-We can calculate the ATT using g-computation, the estimated ATT is shown in @tbl-ATT.
+With our data we can calculate the ATT using g-computation, the estimated ATT is shown in @tbl-ATT.
 
 ```{r}
 #| code-fold: false
@@ -916,7 +969,7 @@ d_pred <- tibble(
 ```
 
 ```{r, tbl-ATT}
-#| tbl-cap: ATT estimate caclulate using g-computation
+#| tbl-cap: ATT estimate calculated using g-computation
 d_pred %>%
     summarize(
         ATT = mean(y_a1 - y_a0)
@@ -932,9 +985,9 @@ d_pred %>%
 
 We can plot what's going on here. In @fig-exposure-version-ATT, `y1` is the observed data among the
 exposed. `y0` would not be observed, but since this is simulated data,
-we can plot it anyway. The dashed y0 curves show the obseved data. We see
+we can plot it anyway. The dashed `y0` curves show the observed data. We see
 that if we compare the gamers with the non-gamers we get a
-counterfactual comparison that is wrong, the versions if Y0 is weigted
+counterfactual comparison that is wrong, the versions of `y0` is weighted
 incorrectly. This is caused by the exposure-version confounding.
 
 ```{r, fig-exposure-version-ATT}

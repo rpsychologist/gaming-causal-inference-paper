@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Kristoffer Magnusson">
-<meta name="dcterms.date" content="2023-05-23">
+<meta name="dcterms.date" content="2023-05-28">
 
 <title>Harmful Compared to What? The Problem of Gaming and Ill-defined Causal Effects - Online Supplement</title>
 <style>
@@ -136,7 +136,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Harmful Compared to What? The Problem of Gaming and Ill-defined Causal Effects - Online Supplement</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button" data-quarto-source-url="https://github.com/rpsychologist/gaming-causal-consistency-paper/index.qmd">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Harmful Compared to What? The Problem of Gaming and Ill-defined Causal Effects - Online Supplement</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button" data-quarto-source-url="https://github.com/rpsychologist/gaming-causal-inference-paper/index.qmd">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -163,7 +163,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 23, 2023</p>
+      <p class="date">May 28, 2023</p>
     </div>
   </div>
   
@@ -176,47 +176,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>extrafont<span class="sc">::</span><span class="fu">loadfonts</span>(<span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(see)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">message =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">warning =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">cache =</span> <span class="cn">TRUE</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>col1 <span class="ot">&lt;-</span> <span class="st">"#2980b9"</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>col2 <span class="ot">&lt;-</span> <span class="st">"#be4048"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(svglite)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>extrafont<span class="sc">::</span><span class="fu">loadfonts</span>(<span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(see)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">message =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">warning =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">cache =</span> <span class="cn">TRUE</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>col1 <span class="ot">&lt;-</span> <span class="st">"#2980b9"</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>col2 <span class="ot">&lt;-</span> <span class="st">"#be4048"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>This is the online supplement for <em>Harmful Compared to What? The Problem of Gaming and Ill-defined Causal Effects</em> (Magnusson, Johansson, &amp; Przybylski, 2023, preprint), containing the code for all calculations and figures presented in the article.</p>
+<p>This is the online supplement for <em>Harmful Compared to What? The Problem of Gaming and Ill-defined Causal Effects</em> (Magnusson, Johansson, &amp; Przybylski, 2023, in preparation), containing the code for all calculations and figures presented in the article.</p>
 <ul>
 <li><a href="./">Preprint</a></li>
-<li><a href="https://github.com/rpsychologist/gaming-causal-consistency-paper/">GitHub respository</a></li>
+<li><a href="https://github.com/rpsychologist/gaming-causal-inference-paper/">GitHub repository</a></li>
 <li><a href="https://osf.io/qfw23/">OSF repository</a></li>
-<li><a href="./">Online version of the supplement</a></li>
 </ul>
 </section>
 <section id="exchangeability-example" class="level2">
 <h2 class="anchored" data-anchor-id="exchangeability-example">Exchangeability example</h2>
 <p>This function was created to simulate a binary confounder.</p>
-<div class="cell" data-hash="supplement_cache/html/unnamed-chunk-2_071b05056ec3e59fcd7005c767d88f7b">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' Simulate binary confounder</span></span>
+<div class="cell" data-hash="supplement_cache/html/unnamed-chunk-2_39d93c7fe9197264505efb5c09f94d87">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' Simulate data with a binary exposure &amp; confounder</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#' Will generate a dataset with a binary exposure and confounder with an</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#' observed difference of a specific magnitude, while the true average</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#' causal effect is zero.</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#' causal effect is zero. The outcome is continuous.</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param n number of participants per group</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param m_young Mean outcome among the young people</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param p_a1_young proportion of young people among the exposed (A = 1)</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param d the (biased) standardized mean difference between exposed </span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#' and un-exposed</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param n the number of participants per group</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param m_young the mean outcome among the young people</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param p_a1_young the proportion of young people among the exposed (A = 1)</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param d the (biased) standardized mean difference between the exposed </span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#' and non-exposed</span></span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>simulate_confounding <span class="ot">&lt;-</span> <span class="cf">function</span>(n, m_young, p_a1_young, d) {</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># this is to make sure overall group diff is equal to d</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># this is to make sure the overall group diff is equal to d</span></span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    m_old <span class="ot">&lt;-</span> d <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> p_a1_young <span class="sc">-</span> <span class="dv">1</span>)</span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    M <span class="ot">&lt;-</span> <span class="fu">c</span>(m_young, m_old)</span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    p <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span> <span class="sc">-</span> p_a1_young, p_a1_young)</span>
@@ -258,7 +262,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>When then simulate a large data set with with a high proportion (85%) young people among the exposed.</p>
+<p>When then simulate a large data set with a high proportion (85%) young people among the exposed.</p>
 <div class="cell" data-hash="supplement_cache/html/unnamed-chunk-3_f99080d136494b604f656d835252e50e">
 <details>
 <summary>Code</summary>
@@ -277,7 +281,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>d <span class="sc">%&gt;%</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(A) <span class="sc">%&gt;%</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Prop. young"</span> <span class="ot">=</span> <span class="fu">mean</span>(U <span class="sc">==</span> <span class="st">"Young"</span>),</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Prop. old"</span> <span class="ot">=</span> <span class="fu">mean</span>(U <span class="sc">==</span> <span class="st">"Old"</span>),</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Mean"</span> <span class="ot">=</span> <span class="fu">mean</span>(y),</span>
@@ -285,7 +289,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div id="tbl-confounder" class="cell tbl-parent quarto-layout-panel anchored" data-hash="supplement_cache/html/tbl-confounder_fc8c5910e6e6aad26f2d04e5858b8591">
+<div id="tbl-confounder" class="cell tbl-parent quarto-layout-panel anchored" data-hash="supplement_cache/html/tbl-confounder_e4131ba62435aa866302e95607037dfb">
 <div class="panel-caption table-caption">
 <p>Table&nbsp;1: Summary of the simulated data</p>
 </div>
@@ -330,15 +334,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[1] 0.5</code></pre>
 </div>
 </div>
-<p>and the biased difference between the exposed and non-exposed are</p>
+<p>and the biased difference between the exposed and non-exposed is:</p>
 <div class="cell" data-hash="supplement_cache/html/unnamed-chunk-5_e39e71a8559c796f7289284bedee7683">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(d[d<span class="sc">$</span>A <span class="sc">==</span> <span class="st">"Gamers"</span>, <span class="st">"y"</span>]) <span class="sc">-</span> <span class="fu">mean</span>(d[d<span class="sc">$</span>A <span class="sc">==</span> <span class="st">"Control"</span>, <span class="st">"y"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.5034944</code></pre>
 </div>
 </div>
-<p><a href="#fig-confounder">Figure&nbsp;1</a> shows that the causal effect within strata is zero, and that the observed difference is outcomes is caused by the confounder.</p>
-<div class="cell" data-hash="supplement_cache/html/fig-confounder_1eb6d96eca928327ff254492696d4e42">
+<p><a href="#fig-confounder">Figure&nbsp;1</a> shows that the causal effect within strata is zero, and that the observed difference in outcomes is caused by the confounder.</p>
+<div class="cell" data-hash="supplement_cache/html/fig-confounder_b3f9951cd9ba7e6a5ff795fc34b00f38">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
@@ -412,7 +416,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a>        <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"ArialMT"</span>)</span>
 <span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a>p</span>
-<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"figures/figure-confounding.svg"</span>, p, <span class="at">width =</span> <span class="dv">5</span>, <span class="at">height =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(</span>
+<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a>    <span class="st">"figures/figure-confounding.svg"</span>, </span>
+<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a>    p, </span>
+<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a>    <span class="at">width =</span> <span class="dv">5</span>, </span>
+<span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a>    <span class="at">height =</span> <span class="dv">4</span></span>
+<span id="cb9-77"><a href="#cb9-77" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-confounder" class="quarto-figure quarto-figure-center anchored">
@@ -423,13 +432,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Unsuprisingly, we get the same biased effect if we run a regression without including the confounder <code>U</code>.</p>
-<div class="cell" data-hash="supplement_cache/html/lm-confounding_4bfe6cbdc05bfd2c9687120719533b18">
+<p>Unsurprisingly, we get the same biased effect if we run a regression without including the confounder <code>U</code>, as shown in <a href="#tbl-lm-confounding">Table&nbsp;2</a>.</p>
+<div class="cell" data-hash="supplement_cache/html/tbl-lm-confounding_58906a452438d03d4a45833ac4a42ba2">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(<span class="fu">lm</span>(y <span class="sc">~</span> A, <span class="at">data =</span> d)) <span class="sc">%&gt;%</span> </span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
+<div id="tbl-lm-confounding" class="anchored">
 <table class="table table-sm table-striped small">
-<caption>Linear regression <em>without</em> adjusting for the confounder </caption>
+<caption>Table&nbsp;2: Linear regression <em>without</em> adjusting for the confounder</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">term</th>
@@ -458,13 +468,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </div>
 </div>
-<p>Adjusting for <code>U</code> removes the confounding</p>
-<div class="cell" data-hash="supplement_cache/html/lm-confounding-adjusted_59484b6cec8123543ca21c4a812a7bfa">
+</div>
+<p>Adjusting for <code>U</code> removes the confounding, as shown in <a href="#tbl-lm-confounding-adjusted">Table&nbsp;3</a>.</p>
+<div class="cell" data-hash="supplement_cache/html/tbl-lm-confounding-adjusted_c3e253fea5456abfe8c470736f23d461">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(<span class="fu">lm</span>(y <span class="sc">~</span> A <span class="sc">+</span> U, <span class="at">data =</span> d)) <span class="sc">%&gt;%</span> </span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
+<div id="tbl-lm-confounding-adjusted" class="anchored">
 <table class="table table-sm table-striped small">
-<caption>Linear regression adjusting for the confounder </caption>
+<caption>Table&nbsp;3: Linear regression adjusting for the confounder</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">term</th>
@@ -500,135 +512,140 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </div>
 </div>
+</div>
 </section>
 <section id="exposure-version-confounding-example" class="level2">
 <h2 class="anchored" data-anchor-id="exposure-version-confounding-example">Exposure-version confounding example</h2>
-<p>Now we will focus on exposure-version confounding. First, we write a function to generate simulated data with 4 version, 2 version among the unexposed and 2 versions for the exposed, both exposure and the version is infleunced by binary confounder (W).</p>
-<div class="cell" data-hash="supplement_cache/html/simulate-exposure-version_3314622ca5740f05b5387ebc887ae3f4">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' Simulate exposure-version confounder</span></span>
+<p>Now we will focus on exposure-version confounding. First, we write a function to generate simulated data with 4 versions, 2 versions for the non-exposed and 2 versions for the exposed, both exposure and version is influenced by the binary confounder (W).</p>
+<div class="cell" data-hash="supplement_cache/html/simulate-exposure-version_9325c106fcb36acaa6a1b53a5c181a1e">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' Simulate data with exposure-version confounding</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#' Will generate a dataset with a binary exposure-version confounder with an</span></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">#' observed difference of a specific magnitude, while the true average</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">#' causal effect is zero.</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param n number of participants per group</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param pr_W the probability of a participant being a man</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param pr_A_W the probability of being exposed among the men</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param pr_K_W_a0 the probability of K = 2 among the un-exposed men</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param pr_K_W_a1 the probability of K = 2 among the exposed men</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param sd_a0 total SD for the unexposed </span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param sd_a1 total SD for the exposed</span></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param d the (biased) standardized mean difference between exposed and un-exposed</span></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>simulate_data <span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    n,</span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    pr_W,</span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    pr_A_W,</span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    pr_K_W_a0,</span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    pr_K_W_a1,</span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    sd_a0,</span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>    sd_a1,</span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>    d</span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>) {</span>
-<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># confounder</span></span>
-<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>    W <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, pr_W)</span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># treatment</span></span>
-<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>    A <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(</span>
-<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>        n,</span>
-<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span>,</span>
-<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ifelse</span>(W <span class="sc">==</span> <span class="dv">1</span>, pr_A_W, <span class="dv">1</span> <span class="sc">-</span> pr_A_W)</span>
-<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># versions when A = 0</span></span>
-<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>    K_a0 <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(</span>
-<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>        n,</span>
-<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span>,</span>
-<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ifelse</span>(W <span class="sc">==</span> <span class="dv">1</span>, pr_K_W_a0, <span class="dv">1</span> <span class="sc">-</span> pr_K_W_a0)</span>
-<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>    <span class="co"># versions when A = 1</span></span>
-<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>    K_a1 <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(</span>
-<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>        n,</span>
-<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span>,</span>
-<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ifelse</span>(W <span class="sc">==</span> <span class="dv">1</span>, pr_K_W_a1, <span class="dv">1</span> <span class="sc">-</span> pr_K_W_a1)</span>
-<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Code below appears more complicated than it is,</span></span>
-<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a>    <span class="co"># it's just a bunch of conditional probabilities to get the correct </span></span>
-<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a>    <span class="co"># proportion and variances. We do this so the total variance will be sd_a0² and sd_a1²,</span></span>
-<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a>    <span class="co"># and the observed difference will be equal to `d`.</span></span>
-<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Pr(A)</span></span>
-<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a>    pr_A <span class="ot">&lt;-</span> pr_A_W <span class="sc">*</span> pr_W <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> pr_A_W) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> pr_W)</span>
-<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Solve for params in control group</span></span>
-<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Pr(W = 1 | A = 0)</span></span>
-<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a>    pr_w_a0 <span class="ot">&lt;-</span> pr_W <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> pr_A_W) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> pr_A)</span>
-<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Pr(K == 2 | A = 0)</span></span>
-<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a>    p_k2_a0 <span class="ot">&lt;-</span> pr_w_a0 <span class="sc">*</span> pr_K_W_a0 <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> pr_w_a0) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> pr_K_W_a0)</span>
-<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Pr(K == 1 | A = 0)</span></span>
-<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a>    p_k1_a0 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> p_k2_a0</span>
-<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a>    <span class="co"># E(Y0 | K = 1)</span></span>
-<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a>    M_Y0_k1 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.5</span></span>
-<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a>    <span class="co"># E(Y0 | K = 2)</span></span>
-<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a>    M_Y0_k2 <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
-<span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a>    pr <span class="ot">&lt;-</span> <span class="fu">c</span>(p_k1_a0, p_k2_a0)</span>
-<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a>    <span class="co"># solve for variance</span></span>
-<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a>    M <span class="ot">&lt;-</span> <span class="fu">c</span>(M_Y0_k1, M_Y0_k2)</span>
-<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a>    y_a0 <span class="ot">&lt;-</span> <span class="fu">sum</span>(M <span class="sc">*</span> pr)</span>
-<span id="cb12-67"><a href="#cb12-67" aria-hidden="true" tabindex="-1"></a>    var_M <span class="ot">&lt;-</span> <span class="fu">sum</span>((M <span class="sc">-</span> y_a0)<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> pr)</span>
-<span id="cb12-68"><a href="#cb12-68" aria-hidden="true" tabindex="-1"></a>    sd_error_A0 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(sd_a0 <span class="sc">-</span> var_M)</span>
-<span id="cb12-69"><a href="#cb12-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-70"><a href="#cb12-70" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Solve for params in treatment group</span></span>
-<span id="cb12-71"><a href="#cb12-71" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Pr(W = 1 | A = 1)</span></span>
-<span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a>    pr_w_a1 <span class="ot">&lt;-</span> pr_W <span class="sc">*</span> pr_A_W <span class="sc">/</span> (pr_A)</span>
-<span id="cb12-73"><a href="#cb12-73" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Pr(K == 2 | A = 1)</span></span>
-<span id="cb12-74"><a href="#cb12-74" aria-hidden="true" tabindex="-1"></a>    p_k2_a1 <span class="ot">&lt;-</span> pr_w_a1 <span class="sc">*</span> pr_K_W_a1 <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> pr_w_a1) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> pr_K_W_a1)</span>
-<span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a>    p_k1_a1 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> p_k2_a1</span>
-<span id="cb12-76"><a href="#cb12-76" aria-hidden="true" tabindex="-1"></a>    pr <span class="ot">&lt;-</span> <span class="fu">c</span>(p_k1_a1, p_k2_a1)</span>
-<span id="cb12-77"><a href="#cb12-77" aria-hidden="true" tabindex="-1"></a>    SD_pooled <span class="ot">&lt;-</span> <span class="fu">sqrt</span>((sd_a0<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> pr_A) <span class="sc">+</span> sd_a1<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> pr_A))</span>
-<span id="cb12-78"><a href="#cb12-78" aria-hidden="true" tabindex="-1"></a>    es <span class="ot">&lt;-</span> d <span class="sc">*</span> SD_pooled</span>
-<span id="cb12-79"><a href="#cb12-79" aria-hidden="true" tabindex="-1"></a>    delta <span class="ot">&lt;-</span> (<span class="sc">-</span><span class="dv">2</span> <span class="sc">*</span> p_k1_a1 <span class="sc">*</span> M_Y0_k2 <span class="sc">+</span> M_Y0_k2 <span class="sc">-</span> (y_a0 <span class="sc">-</span> es)) <span class="sc">/</span> </span>
-<span id="cb12-80"><a href="#cb12-80" aria-hidden="true" tabindex="-1"></a>        (<span class="dv">2</span> <span class="sc">*</span> p_k1_a1 <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb12-81"><a href="#cb12-81" aria-hidden="true" tabindex="-1"></a>    M <span class="ot">&lt;-</span> <span class="fu">c</span>(M_Y0_k1 <span class="sc">-</span> delta, M_Y0_k2 <span class="sc">+</span> delta)</span>
-<span id="cb12-82"><a href="#cb12-82" aria-hidden="true" tabindex="-1"></a>    y_a1 <span class="ot">&lt;-</span> <span class="fu">sum</span>(M <span class="sc">*</span> pr)</span>
-<span id="cb12-83"><a href="#cb12-83" aria-hidden="true" tabindex="-1"></a>    var_M <span class="ot">&lt;-</span> <span class="fu">sum</span>((M <span class="sc">-</span> y_a1)<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> pr)</span>
-<span id="cb12-84"><a href="#cb12-84" aria-hidden="true" tabindex="-1"></a>    sd_error_A1 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(sd_a1<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> var_M)</span>
-<span id="cb12-85"><a href="#cb12-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-86"><a href="#cb12-86" aria-hidden="true" tabindex="-1"></a>    <span class="co"># generate outcomes</span></span>
-<span id="cb12-87"><a href="#cb12-87" aria-hidden="true" tabindex="-1"></a>    Y1 <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="sc">~</span> <span class="dv">0</span> <span class="sc">+</span> <span class="fu">as.factor</span>(K_a1)) <span class="sc">%*%</span> </span>
-<span id="cb12-88"><a href="#cb12-88" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(M_Y0_k1 <span class="sc">-</span> delta, M_Y0_k2 <span class="sc">+</span> delta) <span class="sc">+</span> </span>
-<span id="cb12-89"><a href="#cb12-89" aria-hidden="true" tabindex="-1"></a>        <span class="fu">rnorm</span>(n, <span class="dv">0</span>, sd_error_A1)</span>
-<span id="cb12-90"><a href="#cb12-90" aria-hidden="true" tabindex="-1"></a>    Y0 <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="sc">~</span> <span class="dv">0</span> <span class="sc">+</span> <span class="fu">as.factor</span>(K_a0)) <span class="sc">%*%</span> </span>
-<span id="cb12-91"><a href="#cb12-91" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(M_Y0_k1, M_Y0_k2) <span class="sc">+</span> </span>
-<span id="cb12-92"><a href="#cb12-92" aria-hidden="true" tabindex="-1"></a>        <span class="fu">rnorm</span>(n, <span class="dv">0</span>, sd_error_A0)</span>
-<span id="cb12-93"><a href="#cb12-93" aria-hidden="true" tabindex="-1"></a>    <span class="co"># combine data</span></span>
-<span id="cb12-94"><a href="#cb12-94" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(</span>
-<span id="cb12-95"><a href="#cb12-95" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> <span class="fu">data.frame</span>(</span>
-<span id="cb12-96"><a href="#cb12-96" aria-hidden="true" tabindex="-1"></a>            <span class="at">y =</span> <span class="fu">ifelse</span>(A <span class="sc">==</span> <span class="dv">0</span>, Y0, Y1),</span>
-<span id="cb12-97"><a href="#cb12-97" aria-hidden="true" tabindex="-1"></a>            <span class="at">y1 =</span> Y1,</span>
-<span id="cb12-98"><a href="#cb12-98" aria-hidden="true" tabindex="-1"></a>            <span class="at">y0 =</span> Y0,</span>
-<span id="cb12-99"><a href="#cb12-99" aria-hidden="true" tabindex="-1"></a>            K_a0,</span>
-<span id="cb12-100"><a href="#cb12-100" aria-hidden="true" tabindex="-1"></a>            K_a1,</span>
-<span id="cb12-101"><a href="#cb12-101" aria-hidden="true" tabindex="-1"></a>            <span class="at">K =</span> <span class="fu">ifelse</span>(A <span class="sc">==</span> <span class="dv">0</span>, K_a0, K_a1),</span>
-<span id="cb12-102"><a href="#cb12-102" aria-hidden="true" tabindex="-1"></a>            <span class="at">A =</span> A,</span>
-<span id="cb12-103"><a href="#cb12-103" aria-hidden="true" tabindex="-1"></a>            <span class="at">W =</span> W</span>
-<span id="cb12-104"><a href="#cb12-104" aria-hidden="true" tabindex="-1"></a>        ),</span>
-<span id="cb12-105"><a href="#cb12-105" aria-hidden="true" tabindex="-1"></a>        <span class="at">params =</span> <span class="fu">list</span>(</span>
-<span id="cb12-106"><a href="#cb12-106" aria-hidden="true" tabindex="-1"></a>            <span class="st">"pr_A"</span> <span class="ot">=</span> pr_A,</span>
-<span id="cb12-107"><a href="#cb12-107" aria-hidden="true" tabindex="-1"></a>            <span class="st">"sd_error_A0"</span> <span class="ot">=</span> sd_error_A0,</span>
-<span id="cb12-108"><a href="#cb12-108" aria-hidden="true" tabindex="-1"></a>            <span class="st">"sd_error_A1"</span> <span class="ot">=</span> sd_error_A1,</span>
-<span id="cb12-109"><a href="#cb12-109" aria-hidden="true" tabindex="-1"></a>            <span class="st">"y_a0"</span> <span class="ot">=</span> y_a0,</span>
-<span id="cb12-110"><a href="#cb12-110" aria-hidden="true" tabindex="-1"></a>            <span class="st">"y_a1"</span> <span class="ot">=</span> y_a1,</span>
-<span id="cb12-111"><a href="#cb12-111" aria-hidden="true" tabindex="-1"></a>            <span class="st">"p_k1_a0"</span> <span class="ot">=</span> p_k1_a0,</span>
-<span id="cb12-112"><a href="#cb12-112" aria-hidden="true" tabindex="-1"></a>            <span class="st">"p_k2_a0"</span> <span class="ot">=</span> p_k2_a0,</span>
-<span id="cb12-113"><a href="#cb12-113" aria-hidden="true" tabindex="-1"></a>            <span class="st">"pr_w_a0"</span> <span class="ot">=</span> pr_w_a0,</span>
-<span id="cb12-114"><a href="#cb12-114" aria-hidden="true" tabindex="-1"></a>            <span class="st">"pr_w_a1"</span> <span class="ot">=</span> pr_w_a1,</span>
-<span id="cb12-115"><a href="#cb12-115" aria-hidden="true" tabindex="-1"></a>            <span class="st">"p_k1_a1"</span> <span class="ot">=</span> p_k1_a1,</span>
-<span id="cb12-116"><a href="#cb12-116" aria-hidden="true" tabindex="-1"></a>            <span class="st">"p_k2_a1"</span> <span class="ot">=</span> p_k2_a1,</span>
-<span id="cb12-117"><a href="#cb12-117" aria-hidden="true" tabindex="-1"></a>            <span class="st">"delta"</span> <span class="ot">=</span> delta,</span>
-<span id="cb12-118"><a href="#cb12-118" aria-hidden="true" tabindex="-1"></a>            <span class="st">"SD_pooled"</span> <span class="ot">=</span> SD_pooled,</span>
-<span id="cb12-119"><a href="#cb12-119" aria-hidden="true" tabindex="-1"></a>            <span class="st">"es"</span> <span class="ot">=</span> es</span>
-<span id="cb12-120"><a href="#cb12-120" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb12-121"><a href="#cb12-121" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb12-122"><a href="#cb12-122" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">#' causal effect is zero. Both the confounder and exposure is binary,</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">#' whereas the outcome is a continuous variable.</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param n the number of participants per group</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param pr_W the probability of a participant being young</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param pr_A_W the probability of being exposed among the young</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param pr_K_W_a0 the probability of K = 2 among the non-exposed young</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param pr_K_W_a1 the probability of K = 2 among the exposed young</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param sd_a0 the total SD for the non-exposed </span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param sd_a1 the total SD for the exposed</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param d the (biased) standardized mean difference between exposed </span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co">#' and non-exposed</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>simulate_data <span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    n,</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    pr_W,</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    pr_A_W,</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    pr_K_W_a0,</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>    pr_K_W_a1,</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>    sd_a0,</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>    sd_a1,</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>    d</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>) {</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># confounder</span></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>    W <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, pr_W)</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># treatment</span></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>    A <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(</span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>        n,</span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span>,</span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ifelse</span>(W <span class="sc">==</span> <span class="dv">1</span>, pr_A_W, <span class="dv">1</span> <span class="sc">-</span> pr_A_W)</span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>    <span class="co"># versions when A = 0</span></span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>    K_a0 <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(</span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>        n,</span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span>,</span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ifelse</span>(W <span class="sc">==</span> <span class="dv">1</span>, pr_K_W_a0, <span class="dv">1</span> <span class="sc">-</span> pr_K_W_a0)</span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>    <span class="co"># versions when A = 1</span></span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>    K_a1 <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(</span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>        n,</span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span>,</span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ifelse</span>(W <span class="sc">==</span> <span class="dv">1</span>, pr_K_W_a1, <span class="dv">1</span> <span class="sc">-</span> pr_K_W_a1)</span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Code below appears more complicated than it is,</span></span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a>    <span class="co"># it's just a bunch of conditional probabilities to get the correct </span></span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a>    <span class="co"># proportions and variances. We do this so the total variance </span></span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a>    <span class="co"># will be sd_a0² and sd_a1², and the observed standardized </span></span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a>    <span class="co"># difference will be equal to `d`.</span></span>
+<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Pr(A)</span></span>
+<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a>    pr_A <span class="ot">&lt;-</span> pr_A_W <span class="sc">*</span> pr_W <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> pr_A_W) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> pr_W)</span>
+<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Solve for params in control group</span></span>
+<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Pr(W = 1 | A = 0)</span></span>
+<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a>    pr_w_a0 <span class="ot">&lt;-</span> pr_W <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> pr_A_W) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> pr_A)</span>
+<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Pr(K == 2 | A = 0)</span></span>
+<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a>    p_k2_a0 <span class="ot">&lt;-</span> pr_w_a0 <span class="sc">*</span> pr_K_W_a0 <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> pr_w_a0) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> pr_K_W_a0)</span>
+<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Pr(K == 1 | A = 0)</span></span>
+<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a>    p_k1_a0 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> p_k2_a0</span>
+<span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a>    <span class="co"># E(Y0 | K = 1)</span></span>
+<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a>    M_Y0_k1 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.5</span></span>
+<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a>    <span class="co"># E(Y0 | K = 2)</span></span>
+<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a>    M_Y0_k2 <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb12-67"><a href="#cb12-67" aria-hidden="true" tabindex="-1"></a>    pr <span class="ot">&lt;-</span> <span class="fu">c</span>(p_k1_a0, p_k2_a0)</span>
+<span id="cb12-68"><a href="#cb12-68" aria-hidden="true" tabindex="-1"></a>    <span class="co"># solve for variance</span></span>
+<span id="cb12-69"><a href="#cb12-69" aria-hidden="true" tabindex="-1"></a>    M <span class="ot">&lt;-</span> <span class="fu">c</span>(M_Y0_k1, M_Y0_k2)</span>
+<span id="cb12-70"><a href="#cb12-70" aria-hidden="true" tabindex="-1"></a>    y_a0 <span class="ot">&lt;-</span> <span class="fu">sum</span>(M <span class="sc">*</span> pr)</span>
+<span id="cb12-71"><a href="#cb12-71" aria-hidden="true" tabindex="-1"></a>    var_M <span class="ot">&lt;-</span> <span class="fu">sum</span>((M <span class="sc">-</span> y_a0)<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> pr)</span>
+<span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a>    sd_error_A0 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(sd_a0 <span class="sc">-</span> var_M)</span>
+<span id="cb12-73"><a href="#cb12-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-74"><a href="#cb12-74" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Solve for params in treatment group</span></span>
+<span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Pr(W = 1 | A = 1)</span></span>
+<span id="cb12-76"><a href="#cb12-76" aria-hidden="true" tabindex="-1"></a>    pr_w_a1 <span class="ot">&lt;-</span> pr_W <span class="sc">*</span> pr_A_W <span class="sc">/</span> (pr_A)</span>
+<span id="cb12-77"><a href="#cb12-77" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Pr(K == 2 | A = 1)</span></span>
+<span id="cb12-78"><a href="#cb12-78" aria-hidden="true" tabindex="-1"></a>    p_k2_a1 <span class="ot">&lt;-</span> pr_w_a1 <span class="sc">*</span> pr_K_W_a1 <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> pr_w_a1) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> pr_K_W_a1)</span>
+<span id="cb12-79"><a href="#cb12-79" aria-hidden="true" tabindex="-1"></a>    p_k1_a1 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> p_k2_a1</span>
+<span id="cb12-80"><a href="#cb12-80" aria-hidden="true" tabindex="-1"></a>    pr <span class="ot">&lt;-</span> <span class="fu">c</span>(p_k1_a1, p_k2_a1)</span>
+<span id="cb12-81"><a href="#cb12-81" aria-hidden="true" tabindex="-1"></a>    SD_pooled <span class="ot">&lt;-</span> <span class="fu">sqrt</span>((sd_a0<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> pr_A) <span class="sc">+</span> sd_a1<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> pr_A))</span>
+<span id="cb12-82"><a href="#cb12-82" aria-hidden="true" tabindex="-1"></a>    es <span class="ot">&lt;-</span> d <span class="sc">*</span> SD_pooled</span>
+<span id="cb12-83"><a href="#cb12-83" aria-hidden="true" tabindex="-1"></a>    delta <span class="ot">&lt;-</span> (<span class="sc">-</span><span class="dv">2</span> <span class="sc">*</span> p_k1_a1 <span class="sc">*</span> M_Y0_k2 <span class="sc">+</span> M_Y0_k2 <span class="sc">-</span> (y_a0 <span class="sc">-</span> es)) <span class="sc">/</span> </span>
+<span id="cb12-84"><a href="#cb12-84" aria-hidden="true" tabindex="-1"></a>        (<span class="dv">2</span> <span class="sc">*</span> p_k1_a1 <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb12-85"><a href="#cb12-85" aria-hidden="true" tabindex="-1"></a>    M <span class="ot">&lt;-</span> <span class="fu">c</span>(M_Y0_k1 <span class="sc">-</span> delta, M_Y0_k2 <span class="sc">+</span> delta)</span>
+<span id="cb12-86"><a href="#cb12-86" aria-hidden="true" tabindex="-1"></a>    y_a1 <span class="ot">&lt;-</span> <span class="fu">sum</span>(M <span class="sc">*</span> pr)</span>
+<span id="cb12-87"><a href="#cb12-87" aria-hidden="true" tabindex="-1"></a>    var_M <span class="ot">&lt;-</span> <span class="fu">sum</span>((M <span class="sc">-</span> y_a1)<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> pr)</span>
+<span id="cb12-88"><a href="#cb12-88" aria-hidden="true" tabindex="-1"></a>    sd_error_A1 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(sd_a1<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> var_M)</span>
+<span id="cb12-89"><a href="#cb12-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-90"><a href="#cb12-90" aria-hidden="true" tabindex="-1"></a>    <span class="co"># generate outcomes</span></span>
+<span id="cb12-91"><a href="#cb12-91" aria-hidden="true" tabindex="-1"></a>    Y1 <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="sc">~</span> <span class="dv">0</span> <span class="sc">+</span> <span class="fu">as.factor</span>(K_a1)) <span class="sc">%*%</span> </span>
+<span id="cb12-92"><a href="#cb12-92" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(M_Y0_k1 <span class="sc">-</span> delta, M_Y0_k2 <span class="sc">+</span> delta) <span class="sc">+</span> </span>
+<span id="cb12-93"><a href="#cb12-93" aria-hidden="true" tabindex="-1"></a>        <span class="fu">rnorm</span>(n, <span class="dv">0</span>, sd_error_A1)</span>
+<span id="cb12-94"><a href="#cb12-94" aria-hidden="true" tabindex="-1"></a>    Y0 <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="sc">~</span> <span class="dv">0</span> <span class="sc">+</span> <span class="fu">as.factor</span>(K_a0)) <span class="sc">%*%</span> </span>
+<span id="cb12-95"><a href="#cb12-95" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(M_Y0_k1, M_Y0_k2) <span class="sc">+</span> </span>
+<span id="cb12-96"><a href="#cb12-96" aria-hidden="true" tabindex="-1"></a>        <span class="fu">rnorm</span>(n, <span class="dv">0</span>, sd_error_A0)</span>
+<span id="cb12-97"><a href="#cb12-97" aria-hidden="true" tabindex="-1"></a>    <span class="co"># combine data</span></span>
+<span id="cb12-98"><a href="#cb12-98" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(</span>
+<span id="cb12-99"><a href="#cb12-99" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> <span class="fu">data.frame</span>(</span>
+<span id="cb12-100"><a href="#cb12-100" aria-hidden="true" tabindex="-1"></a>            <span class="at">y =</span> <span class="fu">ifelse</span>(A <span class="sc">==</span> <span class="dv">0</span>, Y0, Y1),</span>
+<span id="cb12-101"><a href="#cb12-101" aria-hidden="true" tabindex="-1"></a>            <span class="at">y1 =</span> Y1,</span>
+<span id="cb12-102"><a href="#cb12-102" aria-hidden="true" tabindex="-1"></a>            <span class="at">y0 =</span> Y0,</span>
+<span id="cb12-103"><a href="#cb12-103" aria-hidden="true" tabindex="-1"></a>            K_a0,</span>
+<span id="cb12-104"><a href="#cb12-104" aria-hidden="true" tabindex="-1"></a>            K_a1,</span>
+<span id="cb12-105"><a href="#cb12-105" aria-hidden="true" tabindex="-1"></a>            <span class="at">K =</span> <span class="fu">ifelse</span>(A <span class="sc">==</span> <span class="dv">0</span>, K_a0, K_a1),</span>
+<span id="cb12-106"><a href="#cb12-106" aria-hidden="true" tabindex="-1"></a>            <span class="at">A =</span> A,</span>
+<span id="cb12-107"><a href="#cb12-107" aria-hidden="true" tabindex="-1"></a>            <span class="at">W =</span> W</span>
+<span id="cb12-108"><a href="#cb12-108" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb12-109"><a href="#cb12-109" aria-hidden="true" tabindex="-1"></a>        <span class="at">params =</span> <span class="fu">list</span>(</span>
+<span id="cb12-110"><a href="#cb12-110" aria-hidden="true" tabindex="-1"></a>            <span class="st">"pr_A"</span> <span class="ot">=</span> pr_A,</span>
+<span id="cb12-111"><a href="#cb12-111" aria-hidden="true" tabindex="-1"></a>            <span class="st">"sd_error_A0"</span> <span class="ot">=</span> sd_error_A0,</span>
+<span id="cb12-112"><a href="#cb12-112" aria-hidden="true" tabindex="-1"></a>            <span class="st">"sd_error_A1"</span> <span class="ot">=</span> sd_error_A1,</span>
+<span id="cb12-113"><a href="#cb12-113" aria-hidden="true" tabindex="-1"></a>            <span class="st">"y_a0"</span> <span class="ot">=</span> y_a0,</span>
+<span id="cb12-114"><a href="#cb12-114" aria-hidden="true" tabindex="-1"></a>            <span class="st">"y_a1"</span> <span class="ot">=</span> y_a1,</span>
+<span id="cb12-115"><a href="#cb12-115" aria-hidden="true" tabindex="-1"></a>            <span class="st">"p_k1_a0"</span> <span class="ot">=</span> p_k1_a0,</span>
+<span id="cb12-116"><a href="#cb12-116" aria-hidden="true" tabindex="-1"></a>            <span class="st">"p_k2_a0"</span> <span class="ot">=</span> p_k2_a0,</span>
+<span id="cb12-117"><a href="#cb12-117" aria-hidden="true" tabindex="-1"></a>            <span class="st">"pr_w_a0"</span> <span class="ot">=</span> pr_w_a0,</span>
+<span id="cb12-118"><a href="#cb12-118" aria-hidden="true" tabindex="-1"></a>            <span class="st">"pr_w_a1"</span> <span class="ot">=</span> pr_w_a1,</span>
+<span id="cb12-119"><a href="#cb12-119" aria-hidden="true" tabindex="-1"></a>            <span class="st">"p_k1_a1"</span> <span class="ot">=</span> p_k1_a1,</span>
+<span id="cb12-120"><a href="#cb12-120" aria-hidden="true" tabindex="-1"></a>            <span class="st">"p_k2_a1"</span> <span class="ot">=</span> p_k2_a1,</span>
+<span id="cb12-121"><a href="#cb12-121" aria-hidden="true" tabindex="-1"></a>            <span class="st">"delta"</span> <span class="ot">=</span> delta,</span>
+<span id="cb12-122"><a href="#cb12-122" aria-hidden="true" tabindex="-1"></a>            <span class="st">"SD_pooled"</span> <span class="ot">=</span> SD_pooled,</span>
+<span id="cb12-123"><a href="#cb12-123" aria-hidden="true" tabindex="-1"></a>            <span class="st">"es"</span> <span class="ot">=</span> es</span>
+<span id="cb12-124"><a href="#cb12-124" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb12-125"><a href="#cb12-125" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb12-126"><a href="#cb12-126" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Let’s simulate a large data set, where 50% are exposed, among the exposed 80% are men, and among the exposed men 90% get K = 2, and among the unexposed men 90% also get K = 2.</p>
+<p>Let’s simulate a large data set, where 50% are exposed, among the exposed 80% are young, and among the exposed young 90% get K = 2, and among the non-exposed young 90% also get K = 2.</p>
 <div class="cell" data-cold-fold="false" data-hash="supplement_cache/html/unnamed-chunk-6_be79db327b68f05967edf35f50663844">
 <details>
 <summary>Code</summary>
@@ -652,13 +669,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <p>Check if the simulated data match our inputs.</p>
-<div class="cell" data-hash="supplement_cache/html/tbl-control-summary_c0b8bd4ea4ff7d1508b2df910e45037b">
+<div class="cell" data-hash="supplement_cache/html/tbl-control-summary_45ea451690660d2cbfced36eb69a9175">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># control</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>d <span class="sc">%&gt;%</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(A <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mean</span>(K <span class="sc">==</span> <span class="dv">1</span>),</span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mean</span>(K <span class="sc">==</span> <span class="dv">2</span>),</span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mean</span>(y),</span>
@@ -687,7 +704,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div id="tbl-control-summary" class="anchored">
 <table class="table table-sm table-striped small">
-<caption>Table&nbsp;2: Summary of the unexposed group</caption>
+<caption>Table&nbsp;4: Summary of the non-exposed group</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">parameter</th>
@@ -726,12 +743,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div class="cell" data-hash="supplement_cache/html/tbl-treatment-summary_a86f74bb753b8e70a1b2dfa6e7638269">
+<div class="cell" data-hash="supplement_cache/html/tbl-treatment-summary_e9f017d4eb32b3bdf5d4d9ac0df7498c">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>d <span class="sc">%&gt;%</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(A <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mean</span>(K <span class="sc">==</span> <span class="dv">1</span>),</span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mean</span>(K <span class="sc">==</span> <span class="dv">2</span>),</span>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mean</span>(y),</span>
@@ -760,7 +777,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div id="tbl-treatment-summary" class="anchored">
 <table class="table table-sm table-striped small">
-<caption>Table&nbsp;3: Summary of the exposed group</caption>
+<caption>Table&nbsp;5: Summary of the exposed group</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">parameter</th>
@@ -799,13 +816,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>We also check so that proportions match stratified by age and version.</p>
-<div class="cell" data-hash="supplement_cache/html/tbl-summary-age-version_0d1d252a5ead5c26f16efc493ffd1024">
+<p>We also check so that the proportions match, stratified by age and version.</p>
+<div class="cell" data-hash="supplement_cache/html/tbl-summary-age-version_da9f74518a2f19fd885fb79bc73c1deb">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>d <span class="sc">%&gt;%</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(A) <span class="sc">%&gt;%</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Young K1"</span> <span class="ot">=</span> <span class="fu">sum</span>(K <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> W <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="fu">sum</span>(W <span class="sc">==</span> <span class="dv">1</span>),</span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Young K2"</span> <span class="ot">=</span> <span class="fu">sum</span>(K <span class="sc">==</span> <span class="dv">2</span> <span class="sc">&amp;</span> W <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="fu">sum</span>(W <span class="sc">==</span> <span class="dv">1</span>),</span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Old K1"</span> <span class="ot">=</span> <span class="fu">sum</span>(K <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> W <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">/</span> <span class="fu">sum</span>(W <span class="sc">==</span> <span class="dv">0</span>),</span>
@@ -817,7 +834,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div id="tbl-summary-age-version" class="anchored">
 <table class="table table-sm table-striped small">
-<caption>Table&nbsp;4: Summary stratified by age and version</caption>
+<caption>Table&nbsp;6: Summary stratified by age and version</caption>
 <thead>
 <tr class="header">
 <th style="text-align: right;">A</th>
@@ -850,8 +867,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>We also see that the overall values are correct, inluding the biased effect.</p>
-<div class="cell" data-hash="supplement_cache/html/tbl-summary-overal_c024971a48890d44919b4d5e74027175">
+<p>We also see that the overall values are correct, including the biased effect.</p>
+<div class="cell" data-hash="supplement_cache/html/tbl-summary-overall_776e1da119145ecfc50ccb604e2247b1">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>pr_A <span class="ot">&lt;-</span> <span class="fu">mean</span>(d<span class="sc">$</span>A)</span>
@@ -887,9 +904,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="tbl-summary-overal" class="anchored">
+<div id="tbl-summary-overall" class="anchored">
 <table class="table table-sm table-striped small">
-<caption>Table&nbsp;5: Summary overal</caption>
+<caption>Table&nbsp;7: Summary overall</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">parameter</th>
@@ -926,7 +943,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="naive-analysis" class="level3">
 <h3 class="anchored" data-anchor-id="naive-analysis">Naive analysis</h3>
 <p>We get a biased estimate if we naively look at the group differences</p>
-<div class="cell" data-hash="supplement_cache/html/fig-exposure-version-overall_d587805851c85899fe6cb7b2b1064407">
+<div class="cell" data-hash="supplement_cache/html/fig-exposure-version-overall_bb55251037640d4669ef551d9310cd14">
 <div class="cell-output-display">
 <div id="fig-exposure-version-overall" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -945,7 +962,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div id="tbl-lm-exposure-version-unadjusted" class="anchored">
 <table class="table table-sm table-striped small">
-<caption>Table&nbsp;6: Linear regression ignoring the exposure-version confounder</caption>
+<caption>Table&nbsp;8: Linear regression ignoring the exposure-version confounder</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">term</th>
@@ -1015,11 +1032,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>In <a href="#fig-exposure-version-versions">Figure&nbsp;5</a> we plot the exposure-version, and we and see that the overall comparison is a weighted average of the different exposure versions in each population. The overall comparison is biased when there is exposure-version confounding, however, we could compare specific versions.</p>
+<p>In <a href="#fig-exposure-version-versions">Figure&nbsp;5</a> we plot the exposure-version, and we and see that the overall comparison is a weighted average of the different exposure versions in each population. The overall comparison is biased when there is exposure-version confounding, however, we could compare specific versions, e.g.,</p>
 <p><span class="math display">
-\mathbb{E}(Y \mid \text{Control}, K = 2) - \mathbb{E}(Y \mid \text{Gamers}, K = 1)
+\mathbb{E}(Y \mid \text{Control}, K = 2) - \mathbb{E}(Y \mid \text{Gamers}, K = 1).
 </span></p>
-<div class="cell" data-hash="supplement_cache/html/fig-exposure-version-versions_0351bf040a867e6279773f7497930110">
+<div class="cell" data-hash="supplement_cache/html/fig-exposure-version-versions_94c96be576509358acf2d05cd6937887">
 <div class="cell-output-display">
 <div id="fig-exposure-version-versions" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -1029,8 +1046,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>If look at the data within each strata of the counfounder, in <a href="#fig-exposure-version-stratified">Figure&nbsp;6</a> we see that overall impact among the older group is positive, whereas it is negative among men. This is interely driven by yound and old people being exposed to different versions of the exposure.</p>
-<div class="cell" data-hash="supplement_cache/html/fig-exposure-version-stratified_ffb0be787d0316108755ae16c201b1f4">
+<p>In <a href="#fig-exposure-version-stratified">Figure&nbsp;6</a> we look at the data within each strata of the confounder, and see that the overall impact among the older group is positive, whereas it is negative among the younger group. This is entirely driven by young and old people being exposed to different versions of the exposure.</p>
+<div class="cell" data-hash="supplement_cache/html/fig-exposure-version-stratified_a550b16185ecf9ede006dddbe0b1bb59">
 <div class="cell-output-display">
 <div id="fig-exposure-version-stratified" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -1050,67 +1067,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 \sum_k \mathbb{E}(Y \mid \text{Gaming}, K = k)\Pr(K = k \mid \text{Gaming}) \\
 &amp; - \sum_k \mathbb{E}(Y \mid \text{Control}, K = k)\Pr(K = k \mid \text{Control})
 \end{align*}</span></p>
-<p>that is, we are comparing the outcomes if everyone in the population was gamers vs if noone was playing games.</p>
-<p>We can get the correct estimate by adjusting for age, for instance, by including age as a covariate or using inverse probability weighting (IPW).</p>
-<div class="cell" data-hash="supplement_cache/html/tbl-ATE-ipw_640e37a7e4673b9199d1ed9656619ed8">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># IPW</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    A <span class="sc">~</span> W,</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> d,</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>)</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> d <span class="sc">%&gt;%</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">p =</span> <span class="fu">predict</span>(mod1, <span class="at">type =</span> <span class="st">"response"</span>)</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">ipw =</span> (A <span class="sc">/</span> p) <span class="sc">+</span> ((<span class="dv">1</span> <span class="sc">-</span> A) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> p)))</span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(</span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lm</span>(y <span class="sc">~</span> A, <span class="at">weights =</span> ipw, <span class="at">data =</span> d2)</span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div id="tbl-ATE-ipw" class="anchored">
-<table class="table table-sm table-striped small">
-<caption>Table&nbsp;7: IPW regression adjusting for age.</caption>
-<thead>
-<tr class="header">
-<th style="text-align: left;">term</th>
-<th style="text-align: right;">estimate</th>
-<th style="text-align: right;">std.error</th>
-<th style="text-align: right;">statistic</th>
-<th style="text-align: right;">p.value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">0.01</td>
-<td style="text-align: right;">-0.85</td>
-<td style="text-align: right;">0.40</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">A</td>
-<td style="text-align: right;">0.01</td>
-<td style="text-align: right;">0.01</td>
-<td style="text-align: right;">0.80</td>
-<td style="text-align: right;">0.42</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
+<p>that is, we are comparing the outcomes if everyone in the population was gamers vs if no one was playing games.</p>
+<p>We can get the correct estimate by adjusting for age, for instance, by including age as a covariate or using inverse probability weighting (IPW), as shown in <a href="#tbl-ATE-lm">Table&nbsp;9</a> and <a href="#tbl-ATE-ipw">Table&nbsp;10</a>.</p>
 <div class="cell" data-hash="supplement_cache/html/tbl-ATE-lm_abedc48b4ced8f82ec4c3ffde7b2cf7e">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">lm</span>(y <span class="sc">~</span> A <span class="sc">+</span> W, <span class="at">data =</span> d)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">lm</span>(y <span class="sc">~</span> A <span class="sc">+</span> W, <span class="at">data =</span> d)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="tbl-ATE-lm" class="anchored">
 <table class="table table-sm table-striped small">
-<caption>Table&nbsp;8: Outcome regression adjusting for age.</caption>
+<caption>Table&nbsp;9: Outcome regression adjusting for age.</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">term</th>
@@ -1147,8 +1114,58 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>In <a href="#fig-exposure-version-ATE">Figure&nbsp;7</a> we plot the counterfactuals, and we see that the ATE is 0. However, we’d get a much more nuanced answer if we had data on the exposure version.</p>
-<div class="cell" data-hash="supplement_cache/html/fig-exposure-version-ATE_93330bfc1d68c2477501a7977e93b227">
+<div class="cell" data-hash="supplement_cache/html/tbl-ATE-ipw_640e37a7e4673b9199d1ed9656619ed8">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># IPW</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    A <span class="sc">~</span> W,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> d,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> d <span class="sc">%&gt;%</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">p =</span> <span class="fu">predict</span>(mod1, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">ipw =</span> (A <span class="sc">/</span> p) <span class="sc">+</span> ((<span class="dv">1</span> <span class="sc">-</span> A) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> p)))</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lm</span>(y <span class="sc">~</span> A, <span class="at">weights =</span> ipw, <span class="at">data =</span> d2)</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="tbl-ATE-ipw" class="anchored">
+<table class="table table-sm table-striped small">
+<caption>Table&nbsp;10: IPW regression adjusting for age.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">term</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">std.error</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">-0.85</td>
+<td style="text-align: right;">0.40</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.80</td>
+<td style="text-align: right;">0.42</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>In <a href="#fig-exposure-version-ATE">Figure&nbsp;7</a> we plot the counterfactuals, and we see that the ATE is 0. However, we’d get a much more nuanced answer if we had data on the exposure versions.</p>
+<div class="cell" data-hash="supplement_cache/html/fig-exposure-version-ATE_eaddb4685cb06b884da7ed89e1868f7d">
 <div class="cell-output-display">
 <div id="fig-exposure-version-ATE" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -1161,13 +1178,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="average-treatment-effect-on-the-treated-att." class="level3">
 <h3 class="anchored" data-anchor-id="average-treatment-effect-on-the-treated-att.">Average treatment effect on the treated (ATT).</h3>
-<p>It’s possible that most people do not have the ATE in mind wh en thinking about the causal effect of video games. It might be more intuitive to think what would happend to the population of gamers if they did not play games. This estimand is called <em>the average treatment effect on the treated</em> (ATT). If the control group was well-defined (i.e. lacked multiple versions), then we could get the ATT simply by comparing the average mental health among gamers with the average mental health among the control group.</p>
+<p>It’s possible that most people do not have the ATE in mind when thinking about the causal effect of video games. It might be more intuitive to imagine what would happened to the population of gamers if they did not play games. This estimand is called <em>the average treatment effect on the treated</em> (ATT). If the control group was well-defined (i.e. lacked multiple versions), then we could get the ATT simply by comparing the average mental health among gamers with the average mental health among the control group.</p>
 <p><span class="math display">\begin{align*}
-\text{ATT} &amp;= \mathbb{E}(Y^{\text{Gaming}} - Y^{\text{Control}} \mid A = 1) \\
-&amp;= \mathbb{E}(Y^{\text{Gaming}} \mid A = 1) - \mathbb{E}(Y^{\text{Control}} \mid A = 1),
+\text{ATT} &amp;= \mathbb{E}(Y^{\text{Gaming}} -
+Y^{\text{Control}} \mid A = \text{Gaming}) \\
+&amp;= \mathbb{E}(Y^{\text{Gaming}} \mid A = \text{Gaming}) -
+\mathbb{E}(Y^{\text{Control}} \mid A = \text{Gaming}),
 \end{align*}</span></p>
 <p><span class="math inline">\mathbb{E}(Y^{\text{Control}} \mid A = 1)</span> is not something we could observe.</p>
-<p>We can calculate the ATT using g-computation, the estimated ATT is shown in <a href="#tbl-ATT">Table&nbsp;9</a>.</p>
+<p>With our data we can calculate the ATT using g-computation, the estimated ATT is shown in <a href="#tbl-ATT">Table&nbsp;11</a>.</p>
 <div class="cell" data-hash="supplement_cache/html/unnamed-chunk-9_750d556f77388f50a60df4c89dce93f4">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> A <span class="sc">*</span> W, <span class="at">data =</span> d)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>d_tx <span class="ot">&lt;-</span> d <span class="sc">%&gt;%</span> <span class="fu">filter</span>(A <span class="sc">==</span> <span class="dv">1</span>)</span>
@@ -1181,7 +1200,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">att =</span> y_a1 <span class="sc">-</span> y_a0</span>
 <span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="supplement_cache/html/tbl-ATT_566e1011144e984bedb3ad2def55026e">
+<div class="cell" data-hash="supplement_cache/html/tbl-ATT_bdd1c7d3eeefbb580159bc28207c5e12">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>d_pred <span class="sc">%&gt;%</span></span>
@@ -1199,7 +1218,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div id="tbl-ATT" class="anchored">
 <table class="table table-sm table-striped small">
-<caption>Table&nbsp;9: ATT estimate caclulate using g-computation</caption>
+<caption>Table&nbsp;11: ATT estimate calculated using g-computation</caption>
 <thead>
 <tr class="header">
 <th style="text-align: right;">ATT</th>
@@ -1216,7 +1235,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>We can plot what’s going on here. In <a href="#fig-exposure-version-ATT">Figure&nbsp;8</a>, <code>y1</code> is the observed data among the exposed. <code>y0</code> would not be observed, but since this is simulated data, we can plot it anyway. The dashed y0 curves show the obseved data. We see that if we compare the gamers with the non-gamers we get a counterfactual comparison that is wrong, the versions if Y0 is weigted incorrectly. This is caused by the exposure-version confounding.</p>
+<p>We can plot what’s going on here. In <a href="#fig-exposure-version-ATT">Figure&nbsp;8</a>, <code>y1</code> is the observed data among the exposed. <code>y0</code> would not be observed, but since this is simulated data, we can plot it anyway. The dashed <code>y0</code> curves show the observed data. We see that if we compare the gamers with the non-gamers we get a counterfactual comparison that is wrong, the versions of <code>y0</code> is weighted incorrectly. This is caused by the exposure-version confounding.</p>
 <div class="cell" data-hash="supplement_cache/html/fig-exposure-version-ATT_b2edaf52061f9e118b25cbaffc43e784">
 <details>
 <summary>Code</summary>

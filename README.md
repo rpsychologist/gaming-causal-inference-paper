@@ -6,8 +6,8 @@ This repository contains the code required to reproduce all figures and simulati
 - Preprint
     - A publicly available version of our manuscript in advance of peer-review and formal publication
 - [OSF repository](https://osf.io/qfw23/)
-- Online analysis supplement ([PDF](https://github.com/rpsychologist/gaming-causal-inference-paper/blob/main/docs/magnusson-2023-gaming-harmful-compared-to-what-supplement.pdf), [HTML](https://rpsychologist.github.io/gaming-causal-consistency-paper))
-    - The rendered version of `supplement.qmd`
+- Online analysis supplement ([PDF](https://github.com/rpsychologist/gaming-causal-inference-paper/blob/main/docs/magnusson-2023-gaming-harmful-compared-to-what-supplement.pdf), [HTML](https://rpsychologist.github.io/gaming-causal-inference-paper))
+    - The rendered versions of `supplement.qmd`
 
 ## Reproducibility
 You can render the supplement using either your local R installation or by using Docker.
@@ -21,7 +21,7 @@ The following dependencies are needed:
     - With a working LaTeX installation
 - Renv (v0.17.3)
 
-The simply run:
+Then simply run:
 ```bash
 R -e 'renv::restore()'
 quarto render
