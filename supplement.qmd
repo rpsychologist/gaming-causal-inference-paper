@@ -13,7 +13,7 @@ toc: true
 toc-depth: 2
 code-fold: true
 code-tools: 
-    source: https://github.com/rpsychologist/gaming-causal-inference-paper/supplement.qmd
+    source: https://github.com/rpsychologist/gaming-causal-inference-paper/blob/main/supplement.qmd
 html-math-method: katex
 format:
     html: 
