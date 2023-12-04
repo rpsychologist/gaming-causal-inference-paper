@@ -40,10 +40,10 @@ Node/.style={
 \begin{adjustbox}{width=20cm, height=12cm, keepaspectratio}
   \begin{tikzpicture}
     \node [fill=uFill, align=center, opacity=0.5](U) {Confounder (U)};
-    \node [fill=uFill, above=of U] (A) {Exposure (A)};
-    \node [fill=uFill, above=of A, align=center](W) {Exposure-version\\confounder (W)};
+    \node [fill=uFill, above=of U, align=center] (A) {\textbf{Gaming}\\Exposure (A)};
+    \node [fill=uFill, above=of A, align=center](W) {\textbf{Age}\\Exposure-version confounder (W)}; 
     \node [fill=uFill, right=of A] (K) {Version (K)};
-    \node [fill=uFill, right=of K] (Y) {Outcome (Y)};
+    \node [fill=uFill, right=of K, align=center] (Y) {\textbf{Mental health}\\Outcome (Y)};
     \draw [Arrow=yFill, color=yFill] (W) to (A);
     \draw [Arrow=yFill, color=yFill] (W) to (K);
     \draw [Arrow=gray, color=gray, dotted] (U) to (A);

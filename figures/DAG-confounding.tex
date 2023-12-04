@@ -39,9 +39,9 @@ Node/.style={
 \begin{document}
 \begin{adjustbox}{width=20cm, height=12cm, keepaspectratio}
   \begin{tikzpicture}
-    \node [fill=uFill, align=center](U) {Confounder (U)};
-    \node[fill=uFill, above=1cm of U] (A) {Exposure (A)};
-    \node[fill=uFill, right=of A] (Y) {Outcome (Y)};
+    \node [fill=uFill, align=center](U) {\textbf{Age}\\Confounder (U)};
+    \node[fill=uFill, above=1cm of U, align=center] (A) {\textbf{Gaming}\\Exposure (A)};
+    \node[fill=uFill, right=of A, align=center] (Y) {\textbf{Mental health}\\Outcome (Y)};
     \draw [Arrow=yFill, color=yFill] (U) to (A);
     \draw [Arrow=yFill, color=yFill] (U) to (Y);
     \draw [Arrow] (A) to (Y);
