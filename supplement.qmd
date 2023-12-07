@@ -1,5 +1,5 @@
 ---
-title: "Harmful Compared to What? The Problem of Gaming and Ill-defined Causal Effects - Online Supplement"
+title: "Harmful Compared to What? The Problem of Gaming and Ambiguous Causal Questions - Online Supplement"
 author: 
   - name: Kristoffer Magnusson
     orcid: 0000-0003-0713-0556
@@ -9,6 +9,7 @@ author:
       - name: Centre for Psychiatry Research, Department of Clinical Neuroscience, Karolinska Institutet, & Stockholm Health Care Services, Region Stockholm
       - name: Oxford Internet Institute, University of Oxford, United Kingdom
 date: now
+bibliography: references.bib
 toc: true
 toc-depth: 2
 code-fold: true
@@ -44,7 +45,7 @@ col2 <- "#be4048"
 ```
 
 ## Introduction
-This is the online supplement for *Harmful Compared to What? The Problem of Gaming and Ill-defined Causal Effects* (Magnusson, Johansson, & Przybylski, 2023, in preparation), containing the code for all calculations and figures presented in the article.
+This is the online supplement for *Harmful Compared to What? The Problem of Gaming and Ambiguous Causal Questions* (Magnusson, Johansson, & Przybylski, 2023, in preparation), containing the code for all calculations and figures presented in the article.
 
 - [Preprint](https://psyarxiv.com/qruhx)
 - [GitHub repository](https://github.com/rpsychologist/gaming-causal-inference-paper/)
@@ -110,7 +111,7 @@ simulate_confounding <- function(n, m_young, p_a1_young, d) {
     ) %>%
     bind_rows() %>%
     mutate(
-        A = factor(A, labels = c("Control", "Gamers")),
+        A = factor(A, labels = c("No gaming", "Gaming")),
         U = factor(U, labels = c("Old", "Young"))
     )
 }
@@ -150,17 +151,17 @@ The proportion of gamers is,
 
 ```{r}
 #| code-fold: false
-mean(d$A == "Gamers")
+mean(d$A == "Gaming")
 ```
 
 and the biased difference between the exposed and non-exposed is:
 
 ```{r}
 #| code-fold: false
-mean(d[d$A == "Gamers", "y"]) - mean(d[d$A == "Control", "y"])
+mean(d[d$A == "Gaming", "y"]) - mean(d[d$A == "No gaming", "y"])
 ```
 
-@fig-confounder shows that the causal effect within strata is zero, and
+@fig-confounder shows that the causal effect within each strata is zero, and
 that the observed difference in outcomes is caused by the confounder.
 
 ```{r, fig-confounder}
@@ -329,7 +330,7 @@ simulate_data <- function(
 
     # Pr(A)
     pr_A <- pr_A_W * pr_W + (1 - pr_A_W) * (1 - pr_W)
-    # Solve for params in control group
+    # Solve for params in non-gamers group
     # Pr(W = 1 | A = 0)
     pr_w_a0 <- pr_W * (1 - pr_A_W) / (1 - pr_A)
     # Pr(K == 2 | A = 0)
@@ -431,7 +432,7 @@ Check if the simulated data match our inputs.
 
 ```{r, tbl-control-summary}
 #| tbl-cap: Summary of the non-exposed group
-# control
+# non-gamers
 d %>%
     filter(A == 0) %>%
     summarize(
@@ -556,7 +557,7 @@ We get a biased estimate if we naively look at the group differences
 p <- ggplot(
     mutate(
         d, 
-        A = factor(A, labels = c("Control", "Gamers"))
+        A = factor(A, labels = c("No gaming", "Gaming"))
     ),
     aes(
         A, 
@@ -590,10 +591,10 @@ p <- ggplot(
     lims(y = c(-2.5, 2.5)) +
     labs(y = "Mental health", x = "Observed outcomes") +
     scale_color_manual(
-        values = c("Control" = col1, "Gamers" = col2, "Overall" = "black")
+        values = c("No gaming" = col1, "Gaming" = col2, "Overall" = "black")
     ) +
     scale_fill_manual(
-        values = c("Control" = col1, "Gamers" = col2, "Overall" = "black")
+        values = c("No gaming" = col1, "Gaming" = col2, "Overall" = "black")
     ) +
     guides(
         colour = guide_legend("Variant"),
@@ -643,14 +644,14 @@ ggplot(
     theme_minimal()
 ```
 
-In @fig-exposure-version-versions we plot the exposure-version, and we and see that the overall comparison is
+In @fig-exposure-version-versions we plot the exposure-versions, and we and see that the overall comparison is
 a weighted average of the different exposure versions in each
 population. The overall comparison is biased when there is
 exposure-version confounding, however, we could compare specific
 versions, e.g.,
 
 $$
-\mathbb{E}(Y \mid \text{Control}, K = 2) - \mathbb{E}(Y \mid \text{Gamers}, K = 1).
+\mathbb{E}(Y \mid \text{Non-gamers}, K = 2) - \mathbb{E}(Y \mid \text{Gamers}, K = 1).
 $$
 
 ```{r, fig-exposure-version-versions}
@@ -659,7 +660,7 @@ $$
 p <- ggplot(
     d,
     aes(
-        x = factor(A, labels = c("Control", "Gamers")),
+        x = factor(A, labels = c("No gaming", "Gaming")),
         y = y,
         color = interaction(K, A),
         group = interaction(K, A)
@@ -770,17 +771,28 @@ p2
 
 ### Average treatment effect (ATE)
 
-The average causal effect of gaming is,
+If we ignore versions, the average causal effect can be written as,
+
+\begin{align}
+\text{ATE} &= \mathbb{E}(Y^\text{Gaming} - Y^\text{No gaming}) \\
+&= \mathbb{E}(Y^\text{Gaming}) - \mathbb{E}(Y^\text{No gaming}) \\
+& = \mathbb{E}(Y^\text{Gaming} \mid A = \text{Gaming}) - \mathbb{E}(Y^\text{No gaming} \mid A = \text{No gaming}) \\
+& = \mathbb{E}(Y^\text{Obs} \mid A = \text{Gaming}) - \mathbb{E}(Y^\text{Obs} \mid A = \text{No gaming}) 
+\end{align}
+
+Going from step 2 to step 3 requires exchangeability, whereas going from step 3 to 4 assumes consistency. 
+
+If we add versions to the definition, then the average causal effect of gaming can be written [@vanderweeleCausalInferenceMultiple2013],
 
 \begin{align*}
 \text{ATE} &= 
-\mathbb{E}(Y^{\text{Gamers}}) - \mathbb{E}(Y^{\text{Control}}) \\ &= 
+\mathbb{E}(Y^{\text{Gaming}}) - \mathbb{E}(Y^{\text{No gaming}}) \\ &= 
 \sum_k \mathbb{E}(Y \mid \text{Gaming}, K = k)\Pr(K = k \mid \text{Gaming}) \\
-& - \sum_k \mathbb{E}(Y \mid \text{Control}, K = k)\Pr(K = k \mid \text{Control}) 
+& - \sum_k \mathbb{E}(Y \mid \text{No gaming}, K = k)\Pr(K = k \mid \text{No gaming}) 
 \end{align*}
 
-that is, we are comparing the outcomes if everyone in the population was
-gamers vs if no one was playing games. 
+that is, we are comparing the outcomes if everyone in the population were
+gamers versus if no one were playing games, weighted by the distribution of the exposure versions.  
 
 We can get the correct estimate by adjusting for age, for instance, by
 including age as a covariate or using inverse probability weighting
@@ -935,19 +947,19 @@ It's possible that most people do not have the ATE in mind when
 thinking about the causal effect of video games. It might be more
 intuitive to imagine what would happened to the population of gamers if
 they did not play games. This estimand is called *the average treatment
-effect on the treated* (ATT). If the control group was well-defined (i.e.
+effect on the treated* (ATT). If the "no gaming" group was well-defined (i.e.
 lacked multiple versions), then we could get the ATT simply by comparing
-the average mental health among gamers with the average mental health
-among the control group.
+the average mental health the among gamers with the average mental health
+among the non-gamers.
 
 \begin{align*}
 \text{ATT} &= \mathbb{E}(Y^{\text{Gaming}} - 
-Y^{\text{Control}} \mid A = \text{Gaming}) \\
+Y^{\text{No gaming}} \mid A = \text{Gaming}) \\
 &= \mathbb{E}(Y^{\text{Gaming}} \mid A = \text{Gaming}) - 
-\mathbb{E}(Y^{\text{Control}} \mid A = \text{Gaming}), 
+\mathbb{E}(Y^{\text{No gaming}} \mid A = \text{Gaming}), 
 \end{align*}
 
-$\mathbb{E}(Y^{\text{Control}} \mid A = 1)$ is not something we could
+$\mathbb{E}(Y^{\text{No gaming}} \mid A = \text{Gaming})$ is not something we could
 observe.
 
 With our data we can calculate the ATT using g-computation, the estimated ATT is shown in @tbl-ATT.
@@ -1146,3 +1158,7 @@ ggsave(
 p
 ```
 
+## References
+
+::: {#refs}
+:::

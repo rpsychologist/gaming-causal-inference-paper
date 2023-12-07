@@ -2,14 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Kristoffer Magnusson">
-<meta name="dcterms.date" content="2023-05-31">
+<meta name="dcterms.date" content="2023-11-30">
 
-<title>Harmful Compared to What? The Problem of Gaming and Ill-defined Causal Effects - Online Supplement</title>
+<title>Harmful Compared to What? The Problem of Gaming and Ambiguous Causal Questions - Online Supplement</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -56,7 +56,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -90,7 +109,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -128,6 +148,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#exchangeability-example" id="toc-exchangeability-example" class="nav-link" data-scroll-target="#exchangeability-example">Exchangeability example</a></li>
   <li><a href="#exposure-version-confounding-example" id="toc-exposure-version-confounding-example" class="nav-link" data-scroll-target="#exposure-version-confounding-example">Exposure-version confounding example</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="magnusson-2023-gaming-harmful-compared-to-what-supplement.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
     </div>
@@ -136,7 +157,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Harmful Compared to What? The Problem of Gaming and Ill-defined Causal Effects - Online Supplement</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button" data-quarto-source-url="https://github.com/rpsychologist/gaming-causal-inference-paper/blob/main/supplement.qmd">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Harmful Compared to What? The Problem of Gaming and Ambiguous Causal Questions - Online Supplement</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button" data-quarto-source-url="https://github.com/rpsychologist/gaming-causal-inference-paper/blob/main/supplement.qmd">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -163,7 +184,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 31, 2023</p>
+      <p class="date">November 30, 2023</p>
     </div>
   </div>
   
@@ -197,7 +218,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>This is the online supplement for <em>Harmful Compared to What? The Problem of Gaming and Ill-defined Causal Effects</em> (Magnusson, Johansson, &amp; Przybylski, 2023, in preparation), containing the code for all calculations and figures presented in the article.</p>
+<p>This is the online supplement for <em>Harmful Compared to What? The Problem of Gaming and Ambiguous Causal Questions</em> (Magnusson, Johansson, &amp; Przybylski, 2023, in preparation), containing the code for all calculations and figures presented in the article.</p>
 <ul>
 <li><a href="https://psyarxiv.com/qruhx">Preprint</a></li>
 <li><a href="https://github.com/rpsychologist/gaming-causal-inference-paper/">GitHub repository</a></li>
@@ -207,7 +228,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="exchangeability-example" class="level2">
 <h2 class="anchored" data-anchor-id="exchangeability-example">Exchangeability example</h2>
 <p>This function was created to simulate a binary confounder.</p>
-<div class="cell" data-hash="supplement_cache/html/unnamed-chunk-2_39d93c7fe9197264505efb5c09f94d87">
+<div class="cell" data-hash="supplement_cache/html/unnamed-chunk-2_b2ea72fe02f38f536327a05fecd01989">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' Simulate data with a binary exposure &amp; confounder</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#' Will generate a dataset with a binary exposure and confounder with an</span></span>
@@ -257,7 +278,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
 <span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_rows</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>        <span class="at">A =</span> <span class="fu">factor</span>(A, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Control"</span>, <span class="st">"Gamers"</span>)),</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>        <span class="at">A =</span> <span class="fu">factor</span>(A, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No gaming"</span>, <span class="st">"Gaming"</span>)),</span>
 <span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>        <span class="at">U =</span> <span class="fu">factor</span>(U, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Old"</span>, <span class="st">"Young"</span>))</span>
 <span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -308,14 +329,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Control</td>
+<td style="text-align: left;">No gaming</td>
 <td style="text-align: right;">0.15</td>
 <td style="text-align: right;">0.85</td>
 <td style="text-align: right;">0.61</td>
 <td style="text-align: right;">1</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Gamers</td>
+<td style="text-align: left;">Gaming</td>
 <td style="text-align: right;">0.85</td>
 <td style="text-align: right;">0.15</td>
 <td style="text-align: right;">0.10</td>
@@ -328,20 +349,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>The proportion of gamers is,</p>
-<div class="cell" data-hash="supplement_cache/html/unnamed-chunk-4_b2719518462c3cd39f36be21a4a5670f">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(d<span class="sc">$</span>A <span class="sc">==</span> <span class="st">"Gamers"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="supplement_cache/html/unnamed-chunk-4_183a4c65128d6fdc5dcb2b40316c36fa">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(d<span class="sc">$</span>A <span class="sc">==</span> <span class="st">"Gaming"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.5</code></pre>
 </div>
 </div>
 <p>and the biased difference between the exposed and non-exposed is:</p>
-<div class="cell" data-hash="supplement_cache/html/unnamed-chunk-5_e39e71a8559c796f7289284bedee7683">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(d[d<span class="sc">$</span>A <span class="sc">==</span> <span class="st">"Gamers"</span>, <span class="st">"y"</span>]) <span class="sc">-</span> <span class="fu">mean</span>(d[d<span class="sc">$</span>A <span class="sc">==</span> <span class="st">"Control"</span>, <span class="st">"y"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="supplement_cache/html/unnamed-chunk-5_0da92a03d9ac015545de70fb4c14d3c5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(d[d<span class="sc">$</span>A <span class="sc">==</span> <span class="st">"Gaming"</span>, <span class="st">"y"</span>]) <span class="sc">-</span> <span class="fu">mean</span>(d[d<span class="sc">$</span>A <span class="sc">==</span> <span class="st">"No gaming"</span>, <span class="st">"y"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.5034944</code></pre>
 </div>
 </div>
-<p><a href="#fig-confounder">Figure&nbsp;1</a> shows that the causal effect within strata is zero, and that the observed difference in outcomes is caused by the confounder.</p>
+<p><a href="#fig-confounder">Figure&nbsp;1</a> shows that the causal effect within each strata is zero, and that the observed difference in outcomes is caused by the confounder.</p>
 <div class="cell" data-hash="supplement_cache/html/fig-confounder_b3f9951cd9ba7e6a5ff795fc34b00f38">
 <details>
 <summary>Code</summary>
@@ -458,7 +479,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">AGamers</td>
+<td style="text-align: left;">AGaming</td>
 <td style="text-align: right;">-0.50</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">-112.35</td>
@@ -495,7 +516,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: right;">0.00</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">AGamers</td>
+<td style="text-align: left;">AGaming</td>
 <td style="text-align: right;">-0.01</td>
 <td style="text-align: right;">0.01</td>
 <td style="text-align: right;">-0.88</td>
@@ -517,7 +538,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="exposure-version-confounding-example" class="level2">
 <h2 class="anchored" data-anchor-id="exposure-version-confounding-example">Exposure-version confounding example</h2>
 <p>Now we will focus on exposure-version confounding. First, we write a function to generate simulated data with 4 versions, 2 versions for the non-exposed and 2 versions for the exposed, both exposure and version is influenced by the binary confounder (W).</p>
-<div class="cell" data-hash="supplement_cache/html/simulate-exposure-version_9325c106fcb36acaa6a1b53a5c181a1e">
+<div class="cell" data-hash="supplement_cache/html/simulate-exposure-version_6764c3a3bd5b1a44620592f1d9186cf6">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' Simulate data with exposure-version confounding</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#' Will generate a dataset with a binary exposure-version confounder with an</span></span>
@@ -573,7 +594,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Pr(A)</span></span>
 <span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a>    pr_A <span class="ot">&lt;-</span> pr_A_W <span class="sc">*</span> pr_W <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> pr_A_W) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> pr_W)</span>
-<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Solve for params in control group</span></span>
+<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Solve for params in non-gamers group</span></span>
 <span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Pr(W = 1 | A = 0)</span></span>
 <span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a>    pr_w_a0 <span class="ot">&lt;-</span> pr_W <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> pr_A_W) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> pr_A)</span>
 <span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Pr(K == 2 | A = 0)</span></span>
@@ -669,10 +690,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <p>Check if the simulated data match our inputs.</p>
-<div class="cell" data-hash="supplement_cache/html/tbl-control-summary_45ea451690660d2cbfced36eb69a9175">
+<div class="cell" data-hash="supplement_cache/html/tbl-control-summary_a7cdf46a598a932442192e11b694dac2">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># control</span></span>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># non-gamers</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>d <span class="sc">%&gt;%</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(A <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
@@ -943,7 +964,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="naive-analysis" class="level3">
 <h3 class="anchored" data-anchor-id="naive-analysis">Naive analysis</h3>
 <p>We get a biased estimate if we naively look at the group differences</p>
-<div class="cell" data-hash="supplement_cache/html/fig-exposure-version-overall_bb55251037640d4669ef551d9310cd14">
+<div class="cell" data-hash="supplement_cache/html/fig-exposure-version-overall_ccf21599d04a7242c2ab59db35d89160">
 <div class="cell-output-display">
 <div id="fig-exposure-version-overall" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -1032,11 +1053,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>In <a href="#fig-exposure-version-versions">Figure&nbsp;5</a> we plot the exposure-version, and we and see that the overall comparison is a weighted average of the different exposure versions in each population. The overall comparison is biased when there is exposure-version confounding, however, we could compare specific versions, e.g.,</p>
+<p>In <a href="#fig-exposure-version-versions">Figure&nbsp;5</a> we plot the exposure-versions, and we and see that the overall comparison is a weighted average of the different exposure versions in each population. The overall comparison is biased when there is exposure-version confounding, however, we could compare specific versions, e.g.,</p>
 <p><span class="math display">
-\mathbb{E}(Y \mid \text{Control}, K = 2) - \mathbb{E}(Y \mid \text{Gamers}, K = 1).
+\mathbb{E}(Y \mid \text{Non-gamers}, K = 2) - \mathbb{E}(Y \mid \text{Gamers}, K = 1).
 </span></p>
-<div class="cell" data-hash="supplement_cache/html/fig-exposure-version-versions_94c96be576509358acf2d05cd6937887">
+<div class="cell" data-hash="supplement_cache/html/fig-exposure-version-versions_e1fe3a57b45b286c72b4cec30bac77f4">
 <div class="cell-output-display">
 <div id="fig-exposure-version-versions" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -1060,14 +1081,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="average-treatment-effect-ate" class="level3">
 <h3 class="anchored" data-anchor-id="average-treatment-effect-ate">Average treatment effect (ATE)</h3>
-<p>The average causal effect of gaming is,</p>
+<p>If we ignore versions, the average causal effect can be written as,</p>
+<p><span class="math display">\begin{align}
+\text{ATE} &amp;= \mathbb{E}(Y^\text{Gaming} - Y^\text{No gaming}) \\
+&amp;= \mathbb{E}(Y^\text{Gaming}) - \mathbb{E}(Y^\text{No gaming}) \\
+&amp; = \mathbb{E}(Y^\text{Gaming} \mid A = \text{Gaming}) - \mathbb{E}(Y^\text{No gaming} \mid A = \text{No gaming}) \\
+&amp; = \mathbb{E}(Y^\text{Obs} \mid A = \text{Gaming}) - \mathbb{E}(Y^\text{Obs} \mid A = \text{No gaming})
+\end{align}</span></p>
+<p>Going from step 2 to step 3 requires exchangeability, whereas going from step 3 to 4 assumes consistency.</p>
+<p>If we add versions to the definition, then the average causal effect of gaming can be written <span class="citation" data-cites="vanderweeleCausalInferenceMultiple2013">(<a href="#ref-vanderweeleCausalInferenceMultiple2013" role="doc-biblioref">VanderWeele and Hernán 2013</a>)</span>,</p>
 <p><span class="math display">\begin{align*}
 \text{ATE} &amp;=
-\mathbb{E}(Y^{\text{Gamers}}) - \mathbb{E}(Y^{\text{Control}}) \\ &amp;=
+\mathbb{E}(Y^{\text{Gaming}}) - \mathbb{E}(Y^{\text{No gaming}}) \\ &amp;=
 \sum_k \mathbb{E}(Y \mid \text{Gaming}, K = k)\Pr(K = k \mid \text{Gaming}) \\
-&amp; - \sum_k \mathbb{E}(Y \mid \text{Control}, K = k)\Pr(K = k \mid \text{Control})
+&amp; - \sum_k \mathbb{E}(Y \mid \text{No gaming}, K = k)\Pr(K = k \mid \text{No gaming})
 \end{align*}</span></p>
-<p>that is, we are comparing the outcomes if everyone in the population was gamers vs if no one was playing games.</p>
+<p>that is, we are comparing the outcomes if everyone in the population were gamers versus if no one were playing games, weighted by the distribution of the exposure versions.</p>
 <p>We can get the correct estimate by adjusting for age, for instance, by including age as a covariate or using inverse probability weighting (IPW), as shown in <a href="#tbl-ATE-lm">Table&nbsp;9</a> and <a href="#tbl-ATE-ipw">Table&nbsp;10</a>.</p>
 <div class="cell" data-hash="supplement_cache/html/tbl-ATE-lm_abedc48b4ced8f82ec4c3ffde7b2cf7e">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(</span>
@@ -1178,14 +1207,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="average-treatment-effect-on-the-treated-att." class="level3">
 <h3 class="anchored" data-anchor-id="average-treatment-effect-on-the-treated-att.">Average treatment effect on the treated (ATT).</h3>
-<p>It’s possible that most people do not have the ATE in mind when thinking about the causal effect of video games. It might be more intuitive to imagine what would happened to the population of gamers if they did not play games. This estimand is called <em>the average treatment effect on the treated</em> (ATT). If the control group was well-defined (i.e. lacked multiple versions), then we could get the ATT simply by comparing the average mental health among gamers with the average mental health among the control group.</p>
+<p>It’s possible that most people do not have the ATE in mind when thinking about the causal effect of video games. It might be more intuitive to imagine what would happened to the population of gamers if they did not play games. This estimand is called <em>the average treatment effect on the treated</em> (ATT). If the “no gaming” group was well-defined (i.e. lacked multiple versions), then we could get the ATT simply by comparing the average mental health the among gamers with the average mental health among the non-gamers.</p>
 <p><span class="math display">\begin{align*}
 \text{ATT} &amp;= \mathbb{E}(Y^{\text{Gaming}} -
-Y^{\text{Control}} \mid A = \text{Gaming}) \\
+Y^{\text{No gaming}} \mid A = \text{Gaming}) \\
 &amp;= \mathbb{E}(Y^{\text{Gaming}} \mid A = \text{Gaming}) -
-\mathbb{E}(Y^{\text{Control}} \mid A = \text{Gaming}),
+\mathbb{E}(Y^{\text{No gaming}} \mid A = \text{Gaming}),
 \end{align*}</span></p>
-<p><span class="math inline">\mathbb{E}(Y^{\text{Control}} \mid A = 1)</span> is not something we could observe.</p>
+<p><span class="math inline">\mathbb{E}(Y^{\text{No gaming}} \mid A = \text{Gaming})</span> is not something we could observe.</p>
 <p>With our data we can calculate the ATT using g-computation, the estimated ATT is shown in <a href="#tbl-ATT">Table&nbsp;11</a>.</p>
 <div class="cell" data-hash="supplement_cache/html/unnamed-chunk-9_750d556f77388f50a60df4c89dce93f4">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> A <span class="sc">*</span> W, <span class="at">data =</span> d)</span>
@@ -1401,9 +1430,17 @@ Y^{\text{Control}} \mid A = \text{Gaming}) \\
 </div>
 </div>
 </div>
-
-
 </section>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-vanderweeleCausalInferenceMultiple2013" class="csl-entry" role="listitem">
+VanderWeele, Tyler J., and Miguel A. Hernán. 2013. <span>“Causal Inference Under Multiple Versions of Treatment.”</span> <em>Journal of Causal Inference</em> 1 (1): 1–20. <a href="https://doi.org/10.1515/jci-2012-0002">https://doi.org/10.1515/jci-2012-0002</a>.
+</div>
+</div>
+
+
 </section>
 
 </main> <!-- /main -->
